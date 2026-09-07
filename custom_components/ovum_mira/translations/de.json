@@ -1,0 +1,386 @@
+{
+    "config": {
+        "error": {
+            "cannot_connect": "Verbindung mit Modbus-TCP-Controller nicht möglich. Ungültige Verbindugsparameter?"
+        },
+        "step": {
+            "user": {
+                "title": "Modbus TCP Verbindung",
+                "description": "TCP Verbindungsparameter zur Kommunikation mit dem Ovum Controller.",
+                "data": {
+                    "host": "Hostname oder IP-Adressse",
+                    "port": "Port",
+                    "wpm_unit_id": "WPM unit ID",
+                    "license_level": "Lizenz-Level"
+                }
+            }
+        }
+    },
+    "selector": {
+        "license_level": {
+            "options": {
+                "1": "Basis (keine)",
+                "2": "Plus",
+                "3": "Building Management System (BMS)"
+            }
+        }
+    },
+    "device": {
+        "heat_pump": {
+            "name": "Wärmepumpe"
+        },
+        "heating1": {
+            "name": "Heizkreis 1"
+        },
+        "heating2": {
+            "name": "Heizkreis 2"
+        },
+        "heating3": {
+            "name": "Heizkreis 3"
+        },
+        "heating4": {
+            "name": "Heizkreis 4"
+        },
+        "hot_water": {
+            "name": "Heißwasser"
+        },
+        "buffer": {
+            "name": "Puffer"
+        },
+        "ems": {
+            "name": "Energiemanagementsystem"
+        }
+    },
+    "entity": {
+        "sensor": {
+            "serial_number": {
+                "name": "Seriennummer"
+            },
+            "outdoor_temperature": {
+                "name": "Außentemperatur"
+            },
+            "status": {
+                "name": "Status"
+            },
+            "off_on_state": {
+                "name": "Status",
+                "state": {
+                    "off": "Aus",
+                    "on": "An"
+                }
+            },
+            "heat_pump_status": {
+                "name": "Status",
+                "state": {
+                    "error": "Störung",
+                    "offline": "Inverter offline",
+                    "hold_off": "Sperrzeit",
+                    "oil_preheating": "Ölvorheizen",
+                    "standby": "Bereit",
+                    "starting": "Start",
+                    "hot_water": "Warmwasser",
+                    "heating": "Heizen",
+                    "cooling": "Kühlen",
+                    "defrosting": "Abtauen",
+                    "manual_defrost": "Manuell enteisen",
+                    "stopping": "Stoppt",
+                    "limit_undercut": "Einsatzgrenze unterschritten",
+                    "inverter_reset": "Inverterresetprozess"
+                }
+            },
+            "power_consumption": {
+                "name": "Leistung"
+            },
+            "power_production": {
+                "name": "Leistung Erzeugung"
+            },
+            "demand": {
+                "name": "Anforderung"
+            },
+            "condenser_input": {
+                "name": "Kondensatoreintritt"
+            },
+            "condenser_output": {
+                "name": "Kondensatoraustritt"
+            },
+            "ontime": {
+                "name": "Betriebszeit"
+            },
+            "type": {
+                "name": "Typ"
+            },
+            "heating_circuit_type": {
+                "name": "Typ",
+                "state": {
+                    "none": "Keiner",
+                    "unregulated": "Ungeregelt",
+                    "return": "Rücklauf",
+                    "mixed": "Gemischt",
+                    "cube_direct": "Cube direkt"
+                }
+            },
+            "buffer_type": {
+                "name": "Typ",
+                "state": {
+                    "none": "Nicht installiert",
+                    "buffer": "Puffer",
+                    "cube": "Cubespeicher"
+                }
+            },
+            "mode": {
+                "name": "Modus"
+            },
+            "heating_circuit_mode": {
+                "name": "Modus",
+                "state": {
+                    "off": "Aus",
+                    "auto": "Auto",
+                    "winter": "Winter",
+                    "summer": "Sommer"
+                }
+            },
+            "buffer_mode": {
+                "name": "Modus",
+                "state": {
+                    "none": "Keiner",
+                    "buffer": "Heizen",
+                    "cube": "Kühlen"
+                }
+            },
+            "operation_mode": {
+                "name": "Betriebsmodus"
+            },
+            "heating_circuit_operation_mode": {
+                "name": "Betriebsmodus",
+                "state": {
+                    "auto": "Auto",
+                    "heating": "Fix-Modus heizen",
+                    "cooling": "Fix-Modus kühlen"
+                }
+            },
+            "temperature_target": {
+                "name": "Solltemperatur"
+            },
+            "temperature": {
+                "name": "Temperatur"
+            },
+            "target_pv_plus": {
+                "name": "Sollwert PV erhöhen"
+            },
+            "target_pv_minus": {
+                "name": "Sollwert PV reduzieren"
+            },
+            "room_temperature_target": {
+                "name": "Raum-Solltemperatur"
+            },
+            "room_temperature": {
+                "name": "Raumtemperatur"
+            },
+            "cooling_room_temperature_target": {
+                "name": "Raum-Solltemperatur kühlen"
+            },
+            "heating_limit": {
+                "name": "Heizgrenze"
+            },
+            "vacation_status_heating_target": {
+                "name": "Urlaubsmodus Solltemperatur heizen"
+            },
+            "vacation_status_cooling_target": {
+                "name": "Urlaubsmodus Solltemperatur kühlen"
+            },
+            "mode_fixed_heating_target": {
+                "name": "Fix-Modus Solltemperatur heizen"
+            },
+            "mode_fixed_cooling_target": {
+                "name": "Fix-Modus Solltemperatur kühlen"
+            },
+            "request_status": {
+                "name": "Anforderungsstatus"
+            },
+            "hot_water_request_status": {
+                "name": "Anforderungsstatus",
+                "state": {
+                    "none": "Keine",
+                    "plus": "Erhöhen",
+                    "photovoltaic": "PV",
+                    "legionella": "Legionellen",
+                    "nominal": "Sollwert",
+                    "turbo": "Turbo",
+                    "frost": "Frost"
+                }
+            },
+            "available": {
+                "name": "Verfügbar",
+                "state": {
+                    "no": "Nein",
+                    "yes": "Ja"
+                }
+            },
+            "temperature_target_pv": {
+                "name": "Solltemperatur PV"
+            },
+            "reservoir_temperature_target": {
+                "name": "Speicher-Solltemperatur"
+            },
+            "reservoir_temperature_top": {
+                "name": "Speichertemperatur oben"
+            },
+            "reservoir_temperature_bottom": {
+                "name": "Speichertemperatur unten"
+            },
+            "vacation_status": {
+                "name": "Urlaubsmodus",
+                "state": {
+                    "no": "Nein",
+                    "yes": "Ja"
+                }
+            },
+            "fresh_water_temperature_target": {
+                "name": "Frischwasser Solltemperatur"
+            },
+            "fresh_water_status": {
+                "name": "Frischwasser Status",
+                "state": {
+                    "none": "Keine Zapfung",
+                    "standby": "Standbyvolumenstrom",
+                    "tap": "Zapfung"
+                }
+            },
+            "circulation_pump_temperature": {
+                "name": "Zirkulationspumpe Temperatur"
+            },
+            "loading_status": {
+                "name": "Ladestatus"
+            },
+            "buffer_loading_status": {
+                "name": "Ladestatus",
+                "state": {
+                    "below_frost": "Unter Frostwert",
+                    "below_switch_on": "Unter Einschaltpunkt (Sollwert - Hysterese)",
+                    "below_target": "Unter Sollwert",
+                    "above_target": "Über Sollwert",
+                    "above_switch_off": "Über Ausschaltpunkt (Sollwert + Hysterese)",
+                    "none": "Nicht konfiguriert"
+                }
+            },
+            "buffer_cooling_loading_status": {
+                "name": "Ladestatus kühlen",
+                "state": {
+                    "above_switch_on": "Über Einschaltpunkt (Sollwert + Hysterese)",
+                    "unused_1": "unused_1",
+                    "above_target": "Über Sollwert",
+                    "below_target": "Unter Sollwert",
+                    "below_switch_off": "Unter Ausschaltpunkt (Sollwert - Hysterese)",
+                    "none": "Nicht konfiguriert"
+                }
+            },
+            "temperature_top": {
+                "name": "Temperatur oben"
+            },
+            "temperature_bottom": {
+                "name": "Temperatur unten"
+            },
+            "cooling_available": {
+                "name": "Kühlen verfügbar"
+            },
+            "cooling_temperature_bottom": {
+                "name": "Kühltemperatur unten"
+            },
+            "cooling_temperature_target": {
+                "name": "Soll-Kühltemperatur"
+            },
+            "pv_release_status_hot_water": {
+                "name": "PV Freigabestatus Heißwasser",
+                "state": {
+                    "not_available": "Nicht konfiguriert",
+                    "deactivated": "Deaktiviert",
+                    "waiting": "Warten auf PV",
+                    "ok": "Freigabe",
+                    "no_release": "Keine Freigabe",
+                    "too_hot": "Zu warm",
+                    "active": "Aktiv"
+                }
+            },
+            "pv_release_status_heating": {
+                "name": "PV Freigabestatus heizen",
+                "state": {
+                    "not_available": "Nicht konfiguriert",
+                    "deactivated": "Deaktiviert",
+                    "waiting": "Warten auf PV",
+                    "ok": "Freigabe",
+                    "no_release": "Keine Freigabe",
+                    "too_hot": "Zu warm",
+                    "active": "Aktiv"
+                }
+            },
+            "pv_release_status_stage2_hot_water": {
+                "name": "PV Freigabestatus Stufe 2 Heißwasser",
+                "state": {
+                    "not_available": "Nicht konfiguriert",
+                    "deactivated": "Deaktiviert",
+                    "waiting": "Warten auf PV",
+                    "ok": "Freigabe",
+                    "no_release": "Keine Freigabe",
+                    "too_hot": "Zu warm",
+                    "active": "Aktiv"
+                }
+            },
+            "pv_release_status_stage2_heating": {
+                "name": "PV Freigabestatus Stufe 2 heizen",
+                "state": {
+                    "not_available": "Nicht konfiguriert",
+                    "deactivated": "Deaktiviert",
+                    "waiting": "Warten auf PV",
+                    "ok": "Freigabe",
+                    "no_release": "Keine Freigabe",
+                    "too_hot": "Zu warm",
+                    "active": "Aktiv"
+                }
+            },
+            "ems_status": {
+                "name": "Status",
+                "state": {
+                    "neutral": "Neutral",
+                    "increase": "Erhöhen"
+                }
+            },
+            "battery": {
+                "name": "Batterie Ladezustand"
+            },
+            "grid_power": {
+                "name": "Netzbezug"
+            },
+            "inverter_power": {
+                "name": "Wechselrichter-Leistung"
+            },
+            "target_power": {
+                "name": "Soll-Leistung"
+            }
+        },
+        "binary_sensor": {
+            "circulation_pump_status": {
+                "name": "Status Zirkulationspumpe"
+            }
+        },
+        "climate": {
+            "heating_1": {
+                "name": "Heizkreis 1"
+            },
+            "heating_2": {
+                "name": "Heizkreis 2"
+            },
+            "heating_3": {
+                "name": "Heizkreis 3"
+            }
+        },
+        "water_heater": {
+            "hot_water": {
+                "name": "Heißwasser",
+                "state": {
+                    "on": "An",
+                    "off": "Aus"
+                }
+            }
+        }
+    }
+}

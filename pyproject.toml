@@ -1,0 +1,33 @@
+[project]
+name = "ha-ovum-mira-hacs"
+version = "0.0.1"
+description = "Custom integration for Ovum Mira heat pump systems over Modbus."
+readme = "README.md"
+requires-python = ">=3.14.2"
+license = "Apache-2.0"
+authors = [{ name = "Alexander Hofbauer" }]
+keywords = ["modbus", "ovum", "mira", "heatpump", "heating"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Topic :: System :: Hardware",
+]
+dependencies = ["ovum-mira-modbus==0.0.1"]
+
+[project.optional-dependencies]
+dev = ["homeassistant"]
+
+[tool.setuptools]
+py-modules = ["custom_components"]
+
+[project.urls]
+Repository = "https://github.com/aleho/ha-ovum-mira-hacs"
+
+[tool.ruff]
+target-version = "py312"
+src = ["custom_components"]
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I", "UP", "B"]
+
+[tool.ruff.lint.isort]
+combine-as-imports = true

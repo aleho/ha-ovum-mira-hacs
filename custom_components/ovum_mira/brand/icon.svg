@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="595.6" height="645.6" version="1.1" viewBox="0 0 595.6 645.6" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <defs>
+        <linearGradient id="heatGrad" x1="570.05" x2="1014.2" y1="59.994" y2="504.17" gradientTransform="scale(.68801 1.4535)" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#fb7185" offset="0"/>
+            <stop stop-color="#e11d48" offset="1"/>
+        </linearGradient>
+        <linearGradient id="coreGrad" x1="-28" x2="-28" y1="-28" y2="28" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#38bdf8" offset="0"/>
+            <stop stop-color="#fff" offset=".5"/>
+            <stop stop-color="#fb7185" offset="1"/>
+        </linearGradient>
+        <linearGradient id="metalGrad">
+            <stop stop-color="#475569" offset="0"/>
+            <stop stop-color="#94a3b8" offset=".5"/>
+            <stop stop-color="#475569" offset="1"/>
+        </linearGradient>
+        <filter id="glowCold" x="-1.92" y="-1.92" width="4.84" height="4.84">
+            <feGaussianBlur result="blur" stdDeviation="8"/>
+            <feComposite in="SourceGraphic" in2="blur"/>
+        </filter>
+        <filter id="glowHeat" x="-.16435" y="-.066316" width="1.3287" height="1.1326">
+            <feGaussianBlur result="blur" stdDeviation="12"/>
+            <feComposite in="SourceGraphic" in2="blur"/>
+        </filter>
+        <linearGradient id="linearGradient32" x1="570.05" x2="1014.2" y1="59.994" y2="504.17" gradientTransform="scale(.68801 1.4535)" gradientUnits="userSpaceOnUse">
+            <stop stop-color="#5a72bf" offset="0"/>
+            <stop stop-color="#0c2da4" offset="1"/>
+        </linearGradient>
+        <linearGradient id="linearGradient35" x1="177.43" x2="672.52" y1="138.36" y2="138.36" gradientTransform="scale(.94124 1.0624)" gradientUnits="userSpaceOnUse" xlink:href="#metalGrad"/>
+        <linearGradient id="linearGradient36" x1="51.551" x2="155.57" y1="1541.1" y2="1541.1" gradientTransform="scale(3.8624 .25891)" gradientUnits="userSpaceOnUse" xlink:href="#metalGrad"/>
+        <linearGradient id="linearGradient37" x1="-97.5" x2="97.5" y1="-97.5" y2="-97.5" gradientUnits="userSpaceOnUse" xlink:href="#metalGrad"/>
+    </defs>
+    <g transform="translate(-102.2 -87.2)">
+        <path d="m430 125c130 15 230 145 230 305 0 140-90 245-230 265" fill="none" filter="url(#glowHeat)" stroke="url(#heatGrad)" stroke-linecap="round" stroke-width="18"/>
+        <path d="m400 150c-130 0-230 130-230 290 0 140 90 230 230 230s230-90 230-230c0-160-100-290-230-290z" fill="#0f172a" stroke="url(#linearGradient35)" stroke-width="6"/>
+        <path d="m310 260q90-20 180 0" fill="none" stroke="#334155" stroke-linecap="round" stroke-width="8"/>
+        <path d="m280 300q120-22 240 0" fill="none" stroke="#334155" stroke-linecap="round" stroke-width="8"/>
+        <path d="m260 340q140-24 280 0" fill="none" stroke="#334155" stroke-linecap="round" stroke-width="8"/>
+        <path d="m200 420q200-30 400 0" fill="none" stroke="url(#linearGradient36)" stroke-width="12"/>
+        <path d="m200 420q200-30 400 0" fill="none" stroke="#0f172a" stroke-width="4"/>
+        <g transform="translate(400,525)">
+            <circle r="95" fill="#020617" stroke="url(#linearGradient37)" stroke-width="5"/>
+            <circle r="28" fill="url(#coreGrad)"/>
+            <path d="m0-28c15-32 45-47 70-32-20 20-45 40-70 32z" fill="#38bdf8" opacity=".85"/>
+            <path d="m28 0c32 15 47 45 32 70-20-20-40-45-32-70z" fill="#38bdf8" opacity=".7"/>
+            <path d="m0 28c-15 32-45 47-70 32 20-20 45-40 70-32z" fill="#fb7185" opacity=".85"/>
+            <path d="m-28 0c-32-15-47-45-32-70 20 20 40 45 32 70z" fill="#fb7185" opacity=".7"/>
+        </g>
+        <path d="m400 170c-100 0-170 80-195 190 20-90 95-165 195-165 75 0 135 45 170 115-30-85-95-140-170-140z" fill="#fff" opacity=".12"/>
+        <circle cx="400" cy="205" r="5" fill="#38bdf8" filter="url(#glowCold)"/>
+        <path transform="matrix(-1,0,0,1,800,0)" d="m430 125c130 15 230 145 230 305 0 140-90 245-230 265" fill="none" filter="url(#glowHeat)" stroke="url(#linearGradient32)" stroke-linecap="round" stroke-width="18"/>
+    </g>
+</svg>

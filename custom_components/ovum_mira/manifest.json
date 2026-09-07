@@ -1,0 +1,14 @@
+{
+  "domain": "ovum_mira",
+  "name": "Ovum Mira",
+  "codeowners": ["@aleho"],
+  "config_flow": true,
+  "dependencies": ["modbus"],
+  "documentation": "https://github.com/aleho/ha-ovum-mira-hacs",
+  "integration_type": "device",
+  "iot_class": "local_polling",
+  "issue_tracker": "https://github.com/aleho/ha-ovum-mira-hacs/issues",
+  "loggers": ["ovum_mira"],
+  "requirements": ["ovum-mira-modbus==0.0.1"],
+  "version": "0.0.1"
+}

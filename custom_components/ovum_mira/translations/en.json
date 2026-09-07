@@ -1,0 +1,386 @@
+{
+    "config": {
+        "error": {
+            "cannot_connect": "Cannot connect to Modbus TCP controller. Invalid connection params?"
+        },
+        "step": {
+            "user": {
+                "title": "Modbus TCP Connection",
+                "description": "TCP connection parameters for communication with the Ovum controller.",
+                "data": {
+                    "host": "Hostname or IP address",
+                    "port": "Port",
+                    "wpm_unit_id": "WPM unit ID",
+                    "license_level": "License level"
+                }
+            }
+        }
+    },
+    "selector": {
+        "license_level": {
+            "options": {
+                "1": "Basic (no)",
+                "2": "Plus",
+                "3": "Building management system (BMS)"
+            }
+        }
+    },
+    "device": {
+        "heat_pump": {
+            "name": "Heat pump"
+        },
+        "heating1": {
+            "name": "Heating circuit 1"
+        },
+        "heating2": {
+            "name": "Heating circuit 2"
+        },
+        "heating3": {
+            "name": "Heating circuit 3"
+        },
+        "heating4": {
+            "name": "Heating circuit 4"
+        },
+        "hot_water": {
+            "name": "Hot water"
+        },
+        "buffer": {
+            "name": "Buffer"
+        },
+        "ems": {
+            "name": "Energy management system"
+        }
+    },
+    "entity": {
+        "sensor": {
+            "serial_number": {
+                "name": "Serial No."
+            },
+            "outdoor_temperature": {
+                "name": "Outdoor temperature"
+            },
+            "status": {
+                "name": "Status"
+            },
+            "off_on_state": {
+                "name": "Status",
+                "state": {
+                    "off": "Off",
+                    "on": "On"
+                }
+            },
+            "heat_pump_status": {
+                "name": "Status",
+                "state": {
+                    "error": "Error",
+                    "offline": "Offline",
+                    "hold_off": "Hold off",
+                    "oil_preheating": "Oil preheating",
+                    "standby": "Standby",
+                    "starting": "Starting",
+                    "hot_water": "Hot water",
+                    "heating": "Heating",
+                    "cooling": "Cooling",
+                    "defrosting": "Defrosting",
+                    "manual_defrost": "Manual defrost",
+                    "stopping": "Stopping",
+                    "limit_undercut": "Limit undercut",
+                    "inverter_reset": "Inverter reset"
+                }
+            },
+            "power_consumption": {
+                "name": "Power consumption"
+            },
+            "power_production": {
+                "name": "Power production"
+            },
+            "demand": {
+                "name": "Demand"
+            },
+            "condenser_input": {
+                "name": "Condenser input temperature"
+            },
+            "condenser_output": {
+                "name": "Condenser output temperature"
+            },
+            "ontime": {
+                "name": "On-time"
+            },
+            "type": {
+                "name": "Type"
+            },
+            "heating_circuit_type": {
+                "name": "Type",
+                "state": {
+                    "none": "None",
+                    "unregulated": "Unregulated",
+                    "return": "Return",
+                    "mixed": "Mixed",
+                    "cube_direct": "Cube direct"
+                }
+            },
+            "buffer_type": {
+                "name": "Type",
+                "state": {
+                    "none": "None",
+                    "buffer": "Buffer",
+                    "cube": "Cube"
+                }
+            },
+            "mode": {
+                "name": "Mode"
+            },
+            "heating_circuit_mode": {
+                "name": "Mode",
+                "state": {
+                    "off": "Off",
+                    "auto": "Auto",
+                    "winter": "Winter",
+                    "summer": "Summer"
+                }
+            },
+            "operation_mode": {
+                "name": "Operation mode"
+            },
+            "heating_circuit_operation_mode": {
+                "name": "Operation mode",
+                "state": {
+                    "auto": "Auto",
+                    "heating": "Fixed heating",
+                    "cooling": "Fixed cooling"
+                }
+            },
+            "buffer_mode": {
+                "name": "Mode",
+                "state": {
+                    "none": "None",
+                    "buffer": "Buffer",
+                    "cube": "Cube"
+                }
+            },
+            "temperature_target": {
+                "name": "Target temperature"
+            },
+            "temperature": {
+                "name": "Temperature"
+            },
+            "target_pv_plus": {
+                "name": "Target PV plus"
+            },
+            "target_pv_minus": {
+                "name": "Target PV minus"
+            },
+            "room_temperature_target": {
+                "name": "Room target temperature"
+            },
+            "room_temperature": {
+                "name": "Room temperature"
+            },
+            "cooling_room_temperature_target": {
+                "name": "Cooling room temperature target"
+            },
+            "heating_limit": {
+                "name": "Heating limit"
+            },
+            "vacation_status_heating_target": {
+                "name": "Vacation heating target"
+            },
+            "vacation_status_cooling_target": {
+                "name": "Vacation cooling target"
+            },
+            "mode_fixed_heating_target": {
+                "name": "Fixed mode heating target"
+            },
+            "mode_fixed_cooling_target": {
+                "name": "Fixed mode cooling target"
+            },
+            "request_status": {
+                "name": "Request status"
+            },
+            "hot_water_request_status": {
+                "name": "Request status",
+                "state": {
+                    "none": "None",
+                    "plus": "Plus",
+                    "photovoltaic": "Photovoltaic",
+                    "legionella": "Legionella",
+                    "nominal": "Nominal",
+                    "turbo": "Turbo",
+                    "frost": "Frost"
+                }
+            },
+            "available": {
+                "name": "Available",
+                "state": {
+                    "no": "No",
+                    "yes": "Yes"
+                }
+            },
+            "temperature_target_pv": {
+                "name": "Target temperature PV"
+            },
+            "reservoir_temperature_target": {
+                "name": "Reservoir target temperature"
+            },
+            "reservoir_temperature_top": {
+                "name": "Reservoir temperature top"
+            },
+            "reservoir_temperature_bottom": {
+                "name": "Reservoir temperature bottom"
+            },
+            "vacation_status": {
+                "name": "Vacation status",
+                "state": {
+                    "no": "No",
+                    "yes": "Yes"
+                }
+            },
+            "fresh_water_temperature_target": {
+                "name": "Fresh water target temperature"
+            },
+            "fresh_water_status": {
+                "name": "Fresh water status",
+                "state": {
+                    "none": "None",
+                    "standby": "Standby flow",
+                    "tap": "Tap"
+                }
+            },
+            "circulation_pump_temperature": {
+                "name": "Circulation pump temperature"
+            },
+            "loading_status": {
+                "name": "Loading status"
+            },
+            "buffer_loading_status": {
+                "name": "Loading status",
+                "state": {
+                    "below_frost": "Below frost",
+                    "below_switch_on": "Below switch-on (target - hysteresis)",
+                    "below_target": "Below target",
+                    "above_target": "Above target",
+                    "above_switch_off": "Above switch-off (target + hysteresis)",
+                    "none": "Not configured"
+                }
+            },
+            "buffer_cooling_loading_status": {
+                "name": "Cooling loading status",
+                "state": {
+                    "above_switch_on": "Above switch-on (target + hysteresis)",
+                    "unused_1": "unused_1",
+                    "above_target": "Above target",
+                    "below_target": "Below target",
+                    "below_switch_off": "Below switch-off (target - hysteresis)",
+                    "none": "Not configured"
+                }
+            },
+            "temperature_top": {
+                "name": "Temperature top"
+            },
+            "temperature_bottom": {
+                "name": "Temperature bottom"
+            },
+            "cooling_available": {
+                "name": "Cooling available"
+            },
+            "cooling_temperature_bottom": {
+                "name": "Cooling temperature bottom"
+            },
+            "cooling_temperature_target": {
+                "name": "Cooling temperature target"
+            },
+            "pv_release_status_hot_water": {
+                "name": "PV release status hot water",
+                "state": {
+                    "not_available": "Not available",
+                    "deactivated": "Deactivated",
+                    "waiting": "Waiting",
+                    "ok": "OK",
+                    "no_release": "No release",
+                    "too_hot": "Too hot",
+                    "active": "Active"
+                }
+            },
+            "pv_release_status_heating": {
+                "name": "PV release status heating",
+                "state": {
+                    "not_available": "Not available",
+                    "deactivated": "Deactivated",
+                    "waiting": "Waiting",
+                    "ok": "OK",
+                    "no_release": "No release",
+                    "too_hot": "Too hot",
+                    "active": "Active"
+                }
+            },
+            "pv_release_status_stage2_hot_water": {
+                "name": "PV release status stage 2 hot water",
+                "state": {
+                    "not_available": "Not available",
+                    "deactivated": "Deactivated",
+                    "waiting": "Waiting",
+                    "ok": "OK",
+                    "no_release": "No release",
+                    "too_hot": "Too hot",
+                    "active": "Active"
+                }
+            },
+            "pv_release_status_stage2_heating": {
+                "name": "PV release status stage 2 heating",
+                "state": {
+                    "not_available": "Not available",
+                    "deactivated": "Deactivated",
+                    "waiting": "Waiting",
+                    "ok": "OK",
+                    "no_release": "No release",
+                    "too_hot": "Too hot",
+                    "active": "Active"
+                }
+            },
+            "ems_status": {
+                "name": "Status",
+                "state": {
+                    "neutral": "Neutral",
+                    "increase": "Increase"
+                }
+            },
+            "battery": {
+                "name": "Battery charging state"
+            },
+            "grid_power": {
+                "name": "Grid power"
+            },
+            "inverter_power": {
+                "name": "Inverter power"
+            },
+            "target_power": {
+                "name": "Target power"
+            }
+        },
+        "binary_sensor": {
+            "circulation_pump_status": {
+                "name": "Circulation pump status"
+            }
+        },
+        "climate": {
+            "heating_1": {
+                "name": "Heating circuit 1"
+            },
+            "heating_2": {
+                "name": "Heating circuit 2"
+            },
+            "heating_3": {
+                "name": "Heating circuit 3"
+            }
+        },
+        "water_heater": {
+            "hot_water": {
+                "name": "Hot water",
+                "state": {
+                    "on": "On",
+                    "off": "off"
+                }
+            }
+        }
+    }
+}
