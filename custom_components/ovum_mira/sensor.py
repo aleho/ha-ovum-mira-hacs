@@ -47,6 +47,8 @@ from .coordinator import OvumConfigEntry
 from .entity import OvumEntity, OvumEntityDescription, enum_options
 from .enum import Component
 
+type TSensorDescription = OvumSensorDescription | OvumMeasurementSensorDescription
+
 
 @dataclass(frozen=True, kw_only=True)
 class OvumSensorDescription(OvumEntityDescription, SensorEntityDescription):
@@ -54,14 +56,14 @@ class OvumSensorDescription(OvumEntityDescription, SensorEntityDescription):
 
 
 @dataclass(frozen=True, kw_only=True)
-class OvumMeasurementSensorDescription(OvumSensorDescription):
-    """Describes a sensor reading an attribute from an Ovum component."""
+class OvumMeasurementSensorDescription(OvumEntityDescription, SensorEntityDescription):
+    """Describes a sensor reading a measurement from an Ovum component."""
 
     state_class = SensorStateClass.MEASUREMENT
 
 
 class OvumSensor(OvumEntity, SensorEntity):
-    entity_description: OvumSensorDescription
+    entity_description: TSensorDescription
 
     @property
     def native_value(self) -> StateType | date | datetime | Decimal:
@@ -77,7 +79,7 @@ class OvumSensor(OvumEntity, SensorEntity):
         return value
 
 
-_SYSTEM_SENSORS: tuple[OvumSensorDescription, ...] = (
+_SYSTEM_SENSORS: tuple[TSensorDescription, ...] = (
     OvumSensorDescription(
         component=Component.SYSTEM,
         key="serial_number",
@@ -94,7 +96,7 @@ _SYSTEM_SENSORS: tuple[OvumSensorDescription, ...] = (
     ),
 )
 
-_HEATPUMP_SENSORS: tuple[OvumSensorDescription, ...] = (
+_HEATPUMP_SENSORS: tuple[TSensorDescription, ...] = (
     OvumSensorDescription(
         component=Component.HEAT_PUMP,
         key="serial_number",
@@ -164,7 +166,7 @@ _HEATPUMP_SENSORS: tuple[OvumSensorDescription, ...] = (
 )
 
 
-def _heating_description(component: Component) -> tuple[OvumSensorDescription, ...]:
+def _heating_description(component: Component) -> tuple[TSensorDescription, ...]:
     if component == Component.HEATING_1 or component == Component.HEATING_2:
         hk_license = OvumLicense.BASIC
     else:
@@ -324,7 +326,7 @@ def _heating_description(component: Component) -> tuple[OvumSensorDescription, .
     )
 
 
-_HOT_WATER_SENSORS: tuple[OvumSensorDescription, ...] = (
+_HOT_WATER_SENSORS: tuple[TSensorDescription, ...] = (
     OvumSensorDescription(
         component=Component.HOT_WATER,
         key="status",
@@ -428,7 +430,7 @@ _HOT_WATER_SENSORS: tuple[OvumSensorDescription, ...] = (
     ),
 )
 
-_BUFFER_SENSORS: tuple[OvumSensorDescription, ...] = (
+_BUFFER_SENSORS: tuple[TSensorDescription, ...] = (
     OvumSensorDescription(
         component=Component.BUFFER,
         key="type",
@@ -525,7 +527,7 @@ _BUFFER_SENSORS: tuple[OvumSensorDescription, ...] = (
     ),
 )
 
-_EMS_SENSORS: tuple[OvumSensorDescription, ...] = (
+_EMS_SENSORS: tuple[TSensorDescription, ...] = (
     OvumSensorDescription(
         component=Component.EMS,
         key="status",
@@ -604,7 +606,7 @@ _EMS_SENSORS: tuple[OvumSensorDescription, ...] = (
     ),
 )
 
-ALL_SENSORS: tuple[OvumSensorDescription, ...] = (
+ALL_SENSORS: tuple[TSensorDescription, ...] = (
     *_SYSTEM_SENSORS,
     *_HEATPUMP_SENSORS,
     *_heating_description(Component.HEATING_1),
