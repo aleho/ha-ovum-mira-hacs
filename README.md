@@ -1,6 +1,6 @@
 # Ovum Mira Heat Pump Integration for Home Assistant (HACS)
 
-[![HACS Validation](https://github.com/aleho/ha-ovum-mira/actions/workflows/validate.yml/badge.svg)](https://github.com/aleho/ha-ovum-mira/actions/workflows/validate.yml)
+[![HACS Validation](https://github.com/aleho/ha-ovum-mira-hacs/actions/workflows/validate.yml/badge.svg)](https://github.com/aleho/ha-ovum-mira-hacs/actions/workflows/validate.yml)
 [![hacs_badge](https://img.shields.io/badge/HACS-Custom-41BDF5.svg)](https://github.com/hacs/default)
 
 This custom integration integrates **Ovum Mira heat pump systems** with Home Assistant using the new **Modbus
