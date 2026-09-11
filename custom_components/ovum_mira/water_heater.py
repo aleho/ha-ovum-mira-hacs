@@ -112,5 +112,5 @@ async def async_setup_entry(
                     name="hot_water",
                 ),
             ),
-        )
+        ).values()
     )

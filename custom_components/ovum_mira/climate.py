@@ -196,4 +196,4 @@ async def async_setup_entry(
     entry: OvumConfigEntry,
     async_add_entities: AddConfigEntryEntitiesCallback,
 ) -> None:
-    async_add_entities(OvumClimateHeating.from_list(entry, ALL_HEATING))
+    async_add_entities(OvumClimateHeating.from_list(entry, ALL_HEATING).values())

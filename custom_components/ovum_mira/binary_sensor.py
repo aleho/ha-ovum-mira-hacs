@@ -47,4 +47,4 @@ async def async_setup_entry(
     entry: OvumConfigEntry,
     async_add_entities: AddConfigEntryEntitiesCallback,
 ) -> None:
-    async_add_entities(OvumBinarySensor.from_list(entry, ALL_SENSORS))
+    async_add_entities(OvumBinarySensor.from_list(entry, ALL_SENSORS).values())

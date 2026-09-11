@@ -104,22 +104,22 @@ class OvumEntity(CoordinatorEntity[OvumCoordinator]):
     def from_list(
         cls,
         entry: OvumConfigEntry,
-        entities: tuple[OvumEntityDescription, ...],
+        descriptions: tuple[OvumEntityDescription, ...],
         **kwargs: Any,
-    ) -> Generator[Self, Any, None]:
+    ) -> dict[str, Self]:
         coordinator = entry.runtime_data
+        entities = {}
 
-        return (
-            cls(
-                coordinator=coordinator,
-                description=description,
-                **kwargs,
-            )
-            for description in filter(
-                lambda d: d.license <= coordinator.license,
-                entities,
-            )
-        )
+        for description in descriptions:
+            if description.license <= coordinator.license:
+                key = f"{description.component}_{description.key}"
+                entities[key] = cls(
+                    coordinator=coordinator,
+                    description=description,
+                    **kwargs,
+                )
+
+        return entities
 
 
 class OvumEntityWriting(OvumEntity):
