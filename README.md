@@ -11,6 +11,9 @@ This is not an official integration and not sponsored by Ovum.
 The underlying device communication is done through the [ovum-mira-modbus](https://github.com/aleho/ovum-mira-modbus/)
 libray implementation.
 
+
+![Device overview](docs/device_overview.png)
+
 ---
 
 ## Features
