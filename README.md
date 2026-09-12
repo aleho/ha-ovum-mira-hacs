@@ -51,6 +51,19 @@ libray implementation.
 
 ---
 
+## Development
+
+- `mkdir ha-ovum-mira && cd ha-ovum-mira`
+- `git clone https://github.com/aleho/ovum-mira-modbus.git`
+- `git clone https://github.com/aleho/ha-ovum-mira-hacs.git`
+- `cd ha-ovum-mira-hacs && bin/install_dev.sh`
+
+This should get you a local setup where you can develop the library and integration from one single environment.
+
+To test this integration in a real Home Assistant setup, use `bin/run_ha.sh` to start HA in a container with your local sources already mounted into the `custom_components` folder.
+
+---
+
 ## AI
 
 This repository was initially generated pointing AI at the
