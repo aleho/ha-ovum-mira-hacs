@@ -1,2 +1,0 @@
-modbus-connection==4.11.1
--e ../ovum-mira-modbus
