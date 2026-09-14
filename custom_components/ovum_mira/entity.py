@@ -3,7 +3,6 @@
 from __future__ import annotations
 
 import logging
-from collections.abc import Generator
 from typing import Any, Self
 
 from homeassistant.helpers import device_registry
