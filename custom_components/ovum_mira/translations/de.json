@@ -56,6 +56,9 @@
             "serial_number": {
                 "name": "Seriennummer"
             },
+            "version": {
+                "name": "Version"
+            },
             "outdoor_temperature": {
                 "name": "Außentemperatur"
             },

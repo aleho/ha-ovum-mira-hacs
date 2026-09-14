@@ -85,6 +85,14 @@ _SYSTEM_SENSORS: tuple[TSensorDescription, ...] = (
         key="serial_number",
         translation_key="serial_number",
         name="serial_number",
+        entity_category=EntityCategory.DIAGNOSTIC,
+    ),
+    OvumSensorDescription(
+        component=Component.SYSTEM,
+        key="version",
+        translation_key="version",
+        name="version",
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     OvumMeasurementSensorDescription(
         component=Component.SYSTEM,
@@ -102,7 +110,13 @@ _HEATPUMP_SENSORS: tuple[TSensorDescription, ...] = (
         key="serial_number",
         translation_key="serial_number",
         name="serial_number",
-        state_class=None,
+        entity_category=EntityCategory.DIAGNOSTIC,
+    ),
+    OvumSensorDescription(
+        component=Component.HEAT_PUMP,
+        key="version",
+        translation_key="version",
+        name="version",
         entity_category=EntityCategory.DIAGNOSTIC,
     ),
     OvumSensorDescription(
