@@ -89,9 +89,9 @@ class OvumClimateHeating(OvumEntityWriting, ClimateEntity):
         match self._subsystem.mode:
             case OvumHeatingCircuitMode.AUTO:
                 mode = HVACMode.AUTO
-            case OvumHeatingCircuitMode.WINTER:
+            case OvumHeatingCircuitMode.HEATING:
                 mode = HVACMode.HEAT
-            case OvumHeatingCircuitMode.SUMMER:
+            case OvumHeatingCircuitMode.COOLING:
                 mode = HVACMode.COOL
             case _:
                 mode = HVACMode.OFF
@@ -111,9 +111,9 @@ class OvumClimateHeating(OvumEntityWriting, ClimateEntity):
             case HVACMode.AUTO:
                 mode = OvumHeatingCircuitMode.AUTO
             case HVACMode.HEAT:
-                mode = OvumHeatingCircuitMode.WINTER
+                mode = OvumHeatingCircuitMode.HEATING
             case HVACMode.COOL:
-                mode = OvumHeatingCircuitMode.SUMMER
+                mode = OvumHeatingCircuitMode.COOLING
 
         if mode is None:
             raise ValueError(f"Unsupported HVAC mode: {hvac_mode}")
@@ -150,10 +150,10 @@ class OvumClimateHeating(OvumEntityWriting, ClimateEntity):
         if self._device.operation_mode == OvumHeatingCircuitOperationMode.COOLING:
             return self._subsystem.cooling_room_temperature_target
 
-        if self._device.mode == OvumHeatingCircuitMode.SUMMER:
+        if self._device.mode == OvumHeatingCircuitMode.COOLING:
             return self._subsystem.cooling_room_temperature_target
 
-        if self._device.mode == OvumHeatingCircuitMode.WINTER:
+        if self._device.mode == OvumHeatingCircuitMode.HEATING:
             return self._subsystem.room_temperature_target
 
         # in auto-mode we can only guess

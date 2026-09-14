@@ -135,8 +135,8 @@
                 "state": {
                     "off": "Off",
                     "auto": "Auto",
-                    "winter": "Winter",
-                    "summer": "Summer"
+                    "heating": "Heating only",
+                    "cooling": "Cooling only"
                 }
             },
             "operation_mode": {

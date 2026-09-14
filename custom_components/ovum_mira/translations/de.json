@@ -135,8 +135,8 @@
                 "state": {
                     "off": "Aus",
                     "auto": "Auto",
-                    "winter": "Winter",
-                    "summer": "Sommer"
+                    "heating": "Nur heizen",
+                    "cooling": "Nur kühlen"
                 }
             },
             "buffer_mode": {
