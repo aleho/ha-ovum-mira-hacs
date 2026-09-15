@@ -65,7 +65,7 @@ STEP_USER = vol.Schema(
                 SelectSelectorConfig(
                     mode=SelectSelectorMode.DROPDOWN,
                     translation_key="license_level",
-                    options=["1", "2", "3"],
+                    options=["1", "2"],
                 )
             ),
             vol.Coerce(int),

@@ -19,9 +19,8 @@
     "selector": {
         "license_level": {
             "options": {
-                "1": "Basic (no)",
-                "2": "Plus",
-                "3": "Building management system (BMS)"
+                "1": "Basic (none)",
+                "2": "Plus"
             }
         }
     },
