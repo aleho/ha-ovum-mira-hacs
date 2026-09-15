@@ -51,7 +51,6 @@ class OvumWaterHeater(OvumEntityWriting, WaterHeaterEntity):
     _attr_current_operation = STATE_HEAT_PUMP
     _attr_operation_list = [STATE_OFF, STATE_ON]
 
-    # TODO there's actually an away mode based on license level
     _attr_supported_features = (
         WaterHeaterEntityFeature.TARGET_TEMPERATURE | WaterHeaterEntityFeature.ON_OFF
     )
