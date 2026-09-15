@@ -6,7 +6,6 @@ set -e
 # the Python environment.
 
 HA_VERSION="${1:-latest}"
-LIB_VERSION="${2:-0.0.3}"
 
 docker run \
     --rm \
