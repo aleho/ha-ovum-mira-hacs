@@ -3,8 +3,21 @@
         "error": {
             "cannot_connect": "Cannot connect to Modbus TCP controller. Invalid connection params?"
         },
+        "abort": {
+            "reconfigure_successful": "Reconfiguration was successful."
+        },
         "step": {
             "user": {
+                "title": "Modbus TCP Connection",
+                "description": "TCP connection parameters for communication with the Ovum controller.",
+                "data": {
+                    "host": "Hostname or IP address",
+                    "port": "Port",
+                    "wpm_unit_id": "WPM unit ID",
+                    "license_level": "License level"
+                }
+            },
+            "reconfigure": {
                 "title": "Modbus TCP Connection",
                 "description": "TCP connection parameters for communication with the Ovum controller.",
                 "data": {

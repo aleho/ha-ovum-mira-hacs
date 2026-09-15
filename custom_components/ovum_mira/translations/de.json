@@ -3,8 +3,21 @@
         "error": {
             "cannot_connect": "Verbindung mit Modbus-TCP-Controller nicht möglich. Ungültige Verbindugsparameter?"
         },
+        "abort": {
+            "reconfigure_successful": "Konfiguration erfolgreich geändert."
+        },
         "step": {
             "user": {
+                "title": "Modbus TCP Verbindung",
+                "description": "TCP Verbindungsparameter zur Kommunikation mit dem Ovum Controller.",
+                "data": {
+                    "host": "Hostname oder IP-Adressse",
+                    "port": "Port",
+                    "wpm_unit_id": "WPM unit ID",
+                    "license_level": "Lizenz-Level"
+                }
+            },
+            "reconfigure": {
                 "title": "Modbus TCP Verbindung",
                 "description": "TCP Verbindungsparameter zur Kommunikation mit dem Ovum Controller.",
                 "data": {
