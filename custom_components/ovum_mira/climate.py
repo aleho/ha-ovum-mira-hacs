@@ -44,7 +44,7 @@ class OvumClimateHeating(OvumEntityWriting, ClimateEntity):
     entity_description: OvumClimateDescription
 
     _attr_hvac_mode = HVACMode.AUTO
-    _attr_hvac_modes = [HVACMode.OFF, HVACMode.AUTO, HVACMode.HEAT, HVACMode.COOL]
+    _attr_hvac_modes = [HVACMode.OFF, HVACMode.HEAT_COOL, HVACMode.HEAT, HVACMode.COOL]
 
     _attr_temperature_unit = UnitOfTemperature.CELSIUS
 
@@ -88,7 +88,7 @@ class OvumClimateHeating(OvumEntityWriting, ClimateEntity):
         """Tries to match the circuit mode to the HVAC mode."""
         match self._subsystem.mode:
             case OvumHeatingCircuitMode.AUTO:
-                mode = HVACMode.AUTO
+                mode = HVACMode.HEAT_COOL
             case OvumHeatingCircuitMode.HEATING:
                 mode = HVACMode.HEAT
             case OvumHeatingCircuitMode.COOLING:
@@ -108,7 +108,7 @@ class OvumClimateHeating(OvumEntityWriting, ClimateEntity):
         match hvac_mode:
             case HVACMode.OFF:
                 mode = OvumHeatingCircuitMode.OFF
-            case HVACMode.AUTO:
+            case HVACMode.HEAT_COOL:
                 mode = OvumHeatingCircuitMode.AUTO
             case HVACMode.HEAT:
                 mode = OvumHeatingCircuitMode.HEATING
@@ -136,27 +136,27 @@ class OvumClimateHeating(OvumEntityWriting, ClimateEntity):
     @override
     @cached_property
     def target_temperature(self) -> float | None:
-        """Return the target temperature.
-        With cooling and heating a Plus license is required to set the cooling
-        target.
-        TODO is this implementation even correct?
-        """
+        """Return the target temperature based on license level and operation mode."""
         if self._license == OvumLicense.BASIC:
             return self._subsystem.room_temperature_target
 
         if self._subsystem.operation_mode == OvumHeatingCircuitOperationMode.HEATING:
-            return self._subsystem.room_temperature_target
+            # fixed heating target
+            return self._subsystem.mode_fixed_heating_target
 
         if self._subsystem.operation_mode == OvumHeatingCircuitOperationMode.COOLING:
-            return self._subsystem.cooling_room_temperature_target
-
-        if self._subsystem.mode == OvumHeatingCircuitMode.COOLING:
-            return self._subsystem.cooling_room_temperature_target
+            # fixed cooling target
+            return self._subsystem.mode_fixed_cooling_target
 
         if self._subsystem.mode == OvumHeatingCircuitMode.HEATING:
+            # winter/heating mode (no cooling)
             return self._subsystem.room_temperature_target
 
-        # in auto-mode we can only guess
+        if self._subsystem.mode == OvumHeatingCircuitMode.COOLING:
+            # summer/cooling mode (no heating)
+            return self._subsystem.cooling_room_temperature_target
+
+        # in auto-mode (heat/cool) we sync both
         return self._subsystem.room_temperature_target
 
     @override
@@ -165,7 +165,36 @@ class OvumClimateHeating(OvumEntityWriting, ClimateEntity):
             return
 
         self._attr_target_temperature = temperature
-        await self._write_value("room_temperature_target", temperature)
+
+        attributes = []
+
+        if self._license == OvumLicense.BASIC:
+            # with basic only this value is available
+            attributes.append("room_temperature_target")
+
+        elif self._subsystem.operation_mode == OvumHeatingCircuitOperationMode.HEATING:
+            # fixed heating target
+            attributes.append("mode_fixed_heating_target")
+
+        elif self._subsystem.operation_mode == OvumHeatingCircuitOperationMode.COOLING:
+            # fixed cooling target
+            attributes.append("mode_fixed_cooling_target")
+
+        elif self._subsystem.mode == OvumHeatingCircuitMode.HEATING:
+            # winter/heating mode -> room target
+            attributes.append("room_temperature_target")
+
+        elif self._subsystem.mode == OvumHeatingCircuitMode.COOLING:
+            # summer/cooling mode -> cooling target
+            attributes.append("cooling_room_temperature_target")
+
+        else:
+            # auto-mode -> sync both non-fixed targets
+            attributes.append("room_temperature_target")
+            attributes.append("cooling_room_temperature_target")
+
+        for attribute in attributes:
+            await self._write_value(attribute, temperature)
 
 
 def _climate_description(component: Component) -> OvumClimateDescription:
