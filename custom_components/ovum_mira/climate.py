@@ -124,7 +124,7 @@ class OvumClimateHeating(OvumEntityWriting, ClimateEntity):
         await self._write_value("mode", mode)
 
     async def async_turn_off(self) -> None:
-        if self._device.mode != OvumHeatingCircuitMode.OFF:
+        if self._subsystem.mode != OvumHeatingCircuitMode.OFF:
             self._attr_hvac_mode = HVACMode.OFF
             await self._write_value("mode", OvumHeatingCircuitMode.OFF)
 
@@ -144,16 +144,16 @@ class OvumClimateHeating(OvumEntityWriting, ClimateEntity):
         if self._license == OvumLicense.BASIC:
             return self._subsystem.room_temperature_target
 
-        if self._device.operation_mode == OvumHeatingCircuitOperationMode.HEATING:
+        if self._subsystem.operation_mode == OvumHeatingCircuitOperationMode.HEATING:
             return self._subsystem.room_temperature_target
 
-        if self._device.operation_mode == OvumHeatingCircuitOperationMode.COOLING:
+        if self._subsystem.operation_mode == OvumHeatingCircuitOperationMode.COOLING:
             return self._subsystem.cooling_room_temperature_target
 
-        if self._device.mode == OvumHeatingCircuitMode.COOLING:
+        if self._subsystem.mode == OvumHeatingCircuitMode.COOLING:
             return self._subsystem.cooling_room_temperature_target
 
-        if self._device.mode == OvumHeatingCircuitMode.HEATING:
+        if self._subsystem.mode == OvumHeatingCircuitMode.HEATING:
             return self._subsystem.room_temperature_target
 
         # in auto-mode we can only guess
