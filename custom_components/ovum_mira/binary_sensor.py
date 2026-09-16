@@ -5,6 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 
 from homeassistant.components.binary_sensor import (
+    BinarySensorDeviceClass,
     BinarySensorEntity,
     BinarySensorEntityDescription,
 )
@@ -27,6 +28,12 @@ class OvumBinarySensorDescription(OvumEntityDescription, BinarySensorEntityDescr
 class OvumBinarySensor(OvumEntity, BinarySensorEntity):
     entity_description: OvumBinarySensorDescription
 
+    @property
+    def is_on(self) -> bool:
+        value = self._current_value
+
+        return isinstance(value, bool) and value
+
 
 _HOT_WATER_SENSORS: tuple[OvumBinarySensorDescription, ...] = (
     OvumBinarySensorDescription(
@@ -35,6 +42,7 @@ _HOT_WATER_SENSORS: tuple[OvumBinarySensorDescription, ...] = (
         key="circulation_pump_status",
         translation_key="circulation_pump_status",
         name="circulation_pump_status",
+        device_class=BinarySensorDeviceClass.RUNNING,
     ),
 )
 

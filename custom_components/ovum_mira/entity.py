@@ -3,11 +3,14 @@
 from __future__ import annotations
 
 import logging
+from datetime import date, datetime
+from decimal import Decimal
 from typing import Any, Self
 
 from homeassistant.helpers import device_registry
 from homeassistant.helpers.device_registry import ChildDeviceInfo, DeviceInfo
 from homeassistant.helpers.entity import EntityDescription
+from homeassistant.helpers.typing import StateType
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from ovum_mira_modbus import (
     OvumComponent,
@@ -91,6 +94,13 @@ class OvumEntity(CoordinatorEntity[OvumCoordinator]):
     def _subsystem(self) -> OvumComponent:
         """Returns the subsystem this entity reads from based on its component."""
         return getattr(self.coordinator.device, self.entity_description.component)
+
+    @property
+    def _current_value(self) -> StateType | date | datetime | Decimal | bool:
+        return getattr(
+            self._subsystem,
+            self.entity_description.attribute or self.entity_description.key,
+        )
 
     def _log(self, message: str, *args: Any) -> None:
         _LOGGER.info(

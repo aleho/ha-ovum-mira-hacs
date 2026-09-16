@@ -68,10 +68,10 @@ class OvumSensor(OvumEntity, SensorEntity):
     @property
     def native_value(self) -> StateType | date | datetime | Decimal:
         """Return the current value, mapping enums to lowercase string."""
-        value = getattr(
-            self._subsystem,
-            self.entity_description.attribute or self.entity_description.key,
-        )
+        value = self._current_value
+
+        if isinstance(value, bool):
+            return "on" if value else "off"
 
         if isinstance(value, IntEnum):
             return value.name.lower()
