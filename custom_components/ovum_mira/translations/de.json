@@ -39,7 +39,7 @@
     },
     "device": {
         "heat_pump": {
-            "name": "Wärmepumpe"
+            "name": "Ovum Mira Wärmepumpe"
         },
         "heating1": {
             "name": "Heizkreis 1"

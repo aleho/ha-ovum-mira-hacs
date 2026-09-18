@@ -39,7 +39,7 @@
     },
     "device": {
         "heat_pump": {
-            "name": "Heat pump"
+            "name": "Ovum Mira heat pump"
         },
         "heating1": {
             "name": "Heating circuit 1"

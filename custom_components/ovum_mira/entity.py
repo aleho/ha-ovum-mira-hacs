@@ -52,35 +52,66 @@ class OvumEntity(CoordinatorEntity[OvumCoordinator]):
         self.entity_description = description
 
         entry = coordinator.config_entry
-        serial_number = entry.unique_id or "__no_serial_number__"
-        device_id = f"{serial_number}_{description.component.value}"
-
-        self._attr_unique_id = f"{device_id}_{description.key}"
-
         registry = device_registry.async_get(coordinator.hass)
-        device = registry.async_get_or_create(
+
+        hsm_serial_number = entry.unique_id or "__no_serial_number__"
+
+        hsm_device = registry.async_get_or_create(
             config_entry_id=entry.entry_id,
-            identifiers={(DOMAIN, serial_number)},
+            identifiers={(DOMAIN, hsm_serial_number)},
             manufacturer="Ovum",
             model="Mira",
             name="Ovum Mira",
-            serial_number=serial_number,
+            serial_number=hsm_serial_number,
+            sw_version=self._device.hsm.version,
         )
 
-        if description.component == Component.SYSTEM:
+        if description.component == Component.HEAT_PUMP:
+            wpm_serial_number = self._device.heat_pump.serial_number
+            wpm_device_id = f"{wpm_serial_number}_{description.component.value}"
+
+            self._attr_unique_id = f"{wpm_device_id}_{description.key}"
+
+            wpm_device = registry.async_get_or_create(
+                config_entry_id=entry.entry_id,
+                identifiers={(DOMAIN, wpm_serial_number)},
+                manufacturer="Ovum",
+                model=self._device.heat_pump.name or "Mira",
+                translation_key="heat_pump",
+                serial_number=wpm_serial_number,
+                sw_version=self._device.heat_pump.version,
+                via_device_id=hsm_device.id,
+            )
+
             self._attr_device_info = DeviceInfo(
-                identifiers=device.identifiers,
-                manufacturer=device.manufacturer,
-                model=device.model,
-                name=device.name,
-                serial_number=device.serial_number,
+                identifiers=wpm_device.identifiers,
+                manufacturer=wpm_device.manufacturer,
+                model=wpm_device.model,
+                name=wpm_device.name,
+                serial_number=wpm_device.serial_number,
+                sw_version=wpm_device.sw_version,
+                via_device_id=hsm_device.id,
             )
+
         else:
-            self._attr_device_info = ChildDeviceInfo(
-                identifiers={(DOMAIN, device_id)},
-                parent_device_id=device.id,
-                translation_key=description.component.value,
-            )
+            hsm_device_id = f"{hsm_serial_number}_{description.component.value}"
+            self._attr_unique_id = f"{hsm_device_id}_{description.key}"
+
+            if description.component == Component.SYSTEM:
+                self._attr_device_info = DeviceInfo(
+                    identifiers=hsm_device.identifiers,
+                    manufacturer=hsm_device.manufacturer,
+                    model=hsm_device.model,
+                    name=hsm_device.name,
+                    serial_number=hsm_device.serial_number,
+                    sw_version=hsm_device.sw_version,
+                )
+            else:
+                self._attr_device_info = ChildDeviceInfo(
+                    identifiers={(DOMAIN, hsm_device_id)},
+                    parent_device_id=hsm_device.id,
+                    translation_key=description.component.value,
+                )
 
     @property
     def _license(self) -> OvumLicense:
