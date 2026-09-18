@@ -95,7 +95,7 @@ class OvumClimateHeating(OvumEntityWriting, ClimateEntity):
             case _:
                 mode = HVACMode.OFF
 
-        self._log("Matched mode %s to HVAC %s", self._subsystem.mode, mode)
+        self._debug("Matched mode %s to HVAC %s", self._subsystem.mode, mode)
 
         return mode
 
@@ -117,7 +117,7 @@ class OvumClimateHeating(OvumEntityWriting, ClimateEntity):
         if mode is None:
             raise ValueError(f"Unsupported HVAC mode: {hvac_mode}")
 
-        self._log("Setting HVAC %s as mode %s", hvac_mode, mode)
+        self._debug("Setting HVAC %s as mode %s", hvac_mode, mode)
 
         self._attr_hvac_mode = mode
         await self._write_value(mode, "mode")

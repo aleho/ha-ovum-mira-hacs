@@ -77,13 +77,6 @@
             "status": {
                 "name": "Status"
             },
-            "off_on_state": {
-                "name": "Status",
-                "state": {
-                    "off": "Aus",
-                    "on": "An"
-                }
-            },
             "heat_pump_status": {
                 "name": "Status",
                 "state": {
@@ -137,15 +130,6 @@
             "mode": {
                 "name": "Modus"
             },
-            "heating_circuit_mode": {
-                "name": "Modus",
-                "state": {
-                    "off": "Aus",
-                    "auto": "Auto",
-                    "heating": "Nur heizen",
-                    "cooling": "Nur kühlen"
-                }
-            },
             "buffer_type": {
                 "name": "Typ",
                 "state": {
@@ -165,49 +149,14 @@
             "operation_mode": {
                 "name": "Betriebsmodus"
             },
-            "heating_circuit_operation_mode": {
-                "name": "Zieltemperatur-Betriebsmodus",
-                "state": {
-                    "auto": "Witterungsgeführt",
-                    "heating": "Fix-Modus heizen",
-                    "cooling": "Fix-Modus kühlen"
-                }
-            },
             "temperature_target": {
                 "name": "Solltemperatur"
             },
             "temperature": {
                 "name": "Temperatur"
             },
-            "target_pv_plus": {
-                "name": "Sollwert PV erhöhen"
-            },
-            "target_pv_minus": {
-                "name": "Sollwert PV reduzieren"
-            },
-            "room_temperature_target": {
-                "name": "Raum-Solltemperatur heizen"
-            },
             "room_temperature": {
                 "name": "Raumtemperatur"
-            },
-            "cooling_room_temperature_target": {
-                "name": "Raum-Solltemperatur kühlen"
-            },
-            "heating_limit": {
-                "name": "Heizgrenze"
-            },
-            "vacation_status_heating_target": {
-                "name": "Urlaubsmodus Solltemperatur heizen"
-            },
-            "vacation_status_cooling_target": {
-                "name": "Urlaubsmodus Solltemperatur kühlen"
-            },
-            "mode_fixed_heating_target": {
-                "name": "Fix-Modus Solltemperatur heizen"
-            },
-            "mode_fixed_cooling_target": {
-                "name": "Fix-Modus Solltemperatur kühlen"
             },
             "request_status": {
                 "name": "Anforderungsstatus"
@@ -230,9 +179,6 @@
                     "no": "Nein",
                     "yes": "Ja"
                 }
-            },
-            "temperature_target_pv": {
-                "name": "Solltemperatur PV"
             },
             "reservoir_temperature_target": {
                 "name": "Speicher-Solltemperatur"
@@ -306,7 +252,7 @@
                 "name": "Kühltemperatur unten"
             },
             "cooling_temperature_target": {
-                "name": "Soll-Kühltemperatur"
+                "name": "Kühl-Solltemperatur"
             },
             "pv_release_status_hot_water": {
                 "name": "PV Freigabestatus Heißwasser",
@@ -362,8 +308,24 @@
                     "neutral": "Neutral",
                     "increase": "Erhöhen"
                 }
+            }
+        },
+        "binary_sensor": {
+            "circulation_pump_status": {
+                "name": "Status Zirkulationspumpe"
+            }
+        },
+        "number": {
+            "room_temperature_target": {
+                "name": "Raum-Solltemperatur heizen"
             },
-            "battery": {
+            "cooling_room_temperature_target": {
+                "name": "Raum-Solltemperatur kühlen"
+            },
+            "temperature_target_pv": {
+                "name": "PV-Solltemperatur"
+            },
+            "battery_soc": {
                 "name": "Batterie Ladezustand"
             },
             "grid_power": {
@@ -374,11 +336,61 @@
             },
             "target_power": {
                 "name": "Soll-Leistung"
+            },
+            "target_pv_plus": {
+                "name": "Sollwert PV erhöhen"
+            },
+            "target_pv_minus": {
+                "name": "Sollwert PV reduzieren"
+            },
+            "heating_limit": {
+                "name": "Heizgrenze"
+            },
+            "vacation_status_heating_target": {
+                "name": "Urlaubsmodus Solltemperatur heizen"
+            },
+            "vacation_status_cooling_target": {
+                "name": "Urlaubsmodus Solltemperatur kühlen"
+            },
+            "mode_fixed_heating_target": {
+                "name": "Fix-Modus Solltemperatur heizen"
+            },
+            "mode_fixed_cooling_target": {
+                "name": "Fix-Modus Solltemperatur kühlen"
             }
         },
-        "binary_sensor": {
-            "circulation_pump_status": {
-                "name": "Status Zirkulationspumpe"
+        "select": {
+            "heating_circuit_mode": {
+                "name": "Modus",
+                "state": {
+                    "off": "Aus",
+                    "auto": "Auto",
+                    "heating": "Nur heizen",
+                    "cooling": "Nur kühlen"
+                }
+            },
+            "heating_circuit_operation_mode": {
+                "name": "Zieltemperatur-Betriebsmodus",
+                "state": {
+                    "auto": "Witterungsgeführt",
+                    "heating": "Fix-Modus heizen",
+                    "cooling": "Fix-Modus kühlen"
+                }
+            },
+            "hot_water_status": {
+                "name": "Betrieb",
+                "state": {
+                    "off": "Aus",
+                    "on": "An"
+                }
+            },
+            "ems_status": {
+                "name": "Soll-Temperatur Vorgabe",
+                "state": {
+                    "neutral": "Neutral",
+                    "increase": "Sollwerte erhöhen",
+                    "decrease": "Sollwerte absenken"
+                }
             }
         },
         "climate": {

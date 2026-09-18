@@ -77,13 +77,6 @@
             "status": {
                 "name": "Status"
             },
-            "off_on_state": {
-                "name": "Status",
-                "state": {
-                    "off": "Off",
-                    "on": "On"
-                }
-            },
             "heat_pump_status": {
                 "name": "Status",
                 "state": {
@@ -137,15 +130,6 @@
             "mode": {
                 "name": "Mode"
             },
-            "heating_circuit_mode": {
-                "name": "Mode",
-                "state": {
-                    "off": "Off",
-                    "auto": "Auto",
-                    "heating": "Heating only",
-                    "cooling": "Cooling only"
-                }
-            },
             "buffer_type": {
                 "name": "Type",
                 "state": {
@@ -165,49 +149,14 @@
             "operation_mode": {
                 "name": "Operation mode"
             },
-            "heating_circuit_operation_mode": {
-                "name": "Target temperature operation mode",
-                "state": {
-                    "auto": "Auto (atmospheric conditions)",
-                    "heating": "Fixed heating",
-                    "cooling": "Fixed cooling"
-                }
-            },
             "temperature_target": {
                 "name": "Target temperature"
             },
             "temperature": {
                 "name": "Temperature"
             },
-            "target_pv_plus": {
-                "name": "Target PV plus"
-            },
-            "target_pv_minus": {
-                "name": "Target PV minus"
-            },
-            "room_temperature_target": {
-                "name": "Heating room target temperature"
-            },
             "room_temperature": {
                 "name": "Room temperature"
-            },
-            "cooling_room_temperature_target": {
-                "name": "Cooling room temperature target"
-            },
-            "heating_limit": {
-                "name": "Heating limit"
-            },
-            "vacation_status_heating_target": {
-                "name": "Vacation heating target"
-            },
-            "vacation_status_cooling_target": {
-                "name": "Vacation cooling target"
-            },
-            "mode_fixed_heating_target": {
-                "name": "Fixed mode heating target"
-            },
-            "mode_fixed_cooling_target": {
-                "name": "Fixed mode cooling target"
             },
             "request_status": {
                 "name": "Request status"
@@ -230,9 +179,6 @@
                     "no": "No",
                     "yes": "Yes"
                 }
-            },
-            "temperature_target_pv": {
-                "name": "Target temperature PV"
             },
             "reservoir_temperature_target": {
                 "name": "Reservoir target temperature"
@@ -362,8 +308,24 @@
                     "neutral": "Neutral",
                     "increase": "Increase"
                 }
+            }
+        },
+        "binary_sensor": {
+            "circulation_pump_status": {
+                "name": "Circulation pump status"
+            }
+        },
+        "number": {
+            "room_temperature_target": {
+                "name": "Heating room target temperature"
             },
-            "battery": {
+            "cooling_room_temperature_target": {
+                "name": "Cooling room temperature target"
+            },
+            "temperature_target_pv": {
+                "name": "PV target temperature"
+            },
+            "battery_soc": {
                 "name": "Battery charging state"
             },
             "grid_power": {
@@ -374,11 +336,61 @@
             },
             "target_power": {
                 "name": "Target power"
+            },
+            "target_pv_plus": {
+                "name": "Target PV plus"
+            },
+            "target_pv_minus": {
+                "name": "Target PV minus"
+            },
+            "heating_limit": {
+                "name": "Heating limit"
+            },
+            "vacation_status_heating_target": {
+                "name": "Vacation heating target"
+            },
+            "vacation_status_cooling_target": {
+                "name": "Vacation cooling target"
+            },
+            "mode_fixed_heating_target": {
+                "name": "Fixed mode heating target"
+            },
+            "mode_fixed_cooling_target": {
+                "name": "Fixed mode cooling target"
             }
         },
-        "binary_sensor": {
-            "circulation_pump_status": {
-                "name": "Circulation pump status"
+        "select": {
+            "heating_circuit_mode": {
+                "name": "Mode",
+                "state": {
+                    "off": "Off",
+                    "auto": "Auto",
+                    "heating": "Heating only",
+                    "cooling": "Cooling only"
+                }
+            },
+            "heating_circuit_operation_mode": {
+                "name": "Target temperature operation mode",
+                "state": {
+                    "auto": "Auto (atmospheric conditions)",
+                    "heating": "Fixed heating",
+                    "cooling": "Fixed cooling"
+                }
+            },
+            "hot_water_status": {
+                "name": "Status",
+                "state": {
+                    "off": "Off",
+                    "on": "On"
+                }
+            },
+            "ems_status": {
+                "name": "Target temperature status",
+                "state": {
+                    "neutral": "Neutral",
+                    "increase": "Increase target values",
+                    "decrease": "Decrease target values"
+                }
             }
         },
         "climate": {

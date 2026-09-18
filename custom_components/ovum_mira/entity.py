@@ -143,6 +143,13 @@ class OvumEntity(CoordinatorEntity[OvumCoordinator]):
             *args,
         )
 
+    def _debug(self, message: str, *args: Any) -> None:
+        _LOGGER.debug(
+            "[%s] " + message,
+            self.entity_description.component.name.lower(),
+            *args,
+        )
+
     @classmethod
     def from_list(
         cls,

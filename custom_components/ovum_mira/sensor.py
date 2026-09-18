@@ -15,7 +15,6 @@ from homeassistant.components.sensor import (
     SensorStateClass,
 )
 from homeassistant.const import (
-    EntityCategory,
     UnitOfPower,
     UnitOfRatio,
     UnitOfTemperature,
@@ -30,15 +29,11 @@ from ovum_mira_modbus import (
     OvumBufferType,
     OvumCoolBufferAvailable,
     OvumCoolBufferLoadingStatus,
-    OvumEmsStatus,
     OvumFreshWaterStatus,
-    OvumHeatingCircuitMode,
-    OvumHeatingCircuitOperationMode,
     OvumHeatingCircuitType,
     OvumHeatpumpStatus,
     OvumHotWaterAvailable,
     OvumHotWaterRequestStatus,
-    OvumHotWaterStatus,
     OvumLicense,
     OvumPvReleaseStatus,
     OvumVacationStatus,
@@ -82,20 +77,6 @@ class OvumSensor(OvumEntity, SensorEntity):
 
 
 _SYSTEM_SENSORS: tuple[TSensorDescription, ...] = (
-    OvumSensorDescription(
-        component=Component.SYSTEM,
-        key="serial_number",
-        translation_key="serial_number",
-        name="serial_number",
-        entity_category=EntityCategory.DIAGNOSTIC,
-    ),
-    OvumSensorDescription(
-        component=Component.SYSTEM,
-        key="version",
-        translation_key="version",
-        name="version",
-        entity_category=EntityCategory.DIAGNOSTIC,
-    ),
     OvumMeasurementSensorDescription(
         component=Component.SYSTEM,
         key="outdoor_temperature",
@@ -107,20 +88,6 @@ _SYSTEM_SENSORS: tuple[TSensorDescription, ...] = (
 )
 
 _HEATPUMP_SENSORS: tuple[TSensorDescription, ...] = (
-    OvumSensorDescription(
-        component=Component.HEAT_PUMP,
-        key="serial_number",
-        translation_key="serial_number",
-        name="serial_number",
-        entity_category=EntityCategory.DIAGNOSTIC,
-    ),
-    OvumSensorDescription(
-        component=Component.HEAT_PUMP,
-        key="version",
-        translation_key="version",
-        name="version",
-        entity_category=EntityCategory.DIAGNOSTIC,
-    ),
     OvumSensorDescription(
         component=Component.HEAT_PUMP,
         key="status",
@@ -198,24 +165,6 @@ def _heating_description(component: Component) -> tuple[TSensorDescription, ...]
             device_class=SensorDeviceClass.ENUM,
             options=enum_options(OvumHeatingCircuitType),
         ),
-        OvumSensorDescription(
-            component=component,
-            license=hk_license,
-            key="mode",
-            translation_key="heating_circuit_mode",
-            name="mode",
-            device_class=SensorDeviceClass.ENUM,
-            options=enum_options(OvumHeatingCircuitMode),
-        ),
-        OvumSensorDescription(
-            component=component,
-            license=OvumLicense.PLUS,
-            key="operation_mode",
-            translation_key="heating_circuit_operation_mode",
-            name="operation_mode",
-            device_class=SensorDeviceClass.ENUM,
-            options=enum_options(OvumHeatingCircuitOperationMode),
-        ),
         OvumMeasurementSensorDescription(
             component=component,
             license=hk_license,
@@ -236,35 +185,6 @@ def _heating_description(component: Component) -> tuple[TSensorDescription, ...]
         ),
         OvumMeasurementSensorDescription(
             component=component,
-            license=hk_license,
-            key="target_pv_plus",
-            translation_key="target_pv_plus",
-            name="target_pv_plus",
-            device_class=SensorDeviceClass.TEMPERATURE_DELTA,
-            native_unit_of_measurement=UnitOfTemperature.KELVIN,
-            suggested_unit_of_measurement=UnitOfTemperature.KELVIN,
-        ),
-        OvumMeasurementSensorDescription(
-            component=component,
-            license=hk_license,
-            key="target_pv_minus",
-            translation_key="target_pv_minus",
-            name="target_pv_minus",
-            device_class=SensorDeviceClass.TEMPERATURE_DELTA,
-            native_unit_of_measurement=UnitOfTemperature.KELVIN,
-            suggested_unit_of_measurement=UnitOfTemperature.KELVIN,
-        ),
-        OvumMeasurementSensorDescription(
-            component=component,
-            license=hk_license,
-            key="room_temperature_target",
-            translation_key="room_temperature_target",
-            name="room_temperature_target",
-            device_class=SensorDeviceClass.TEMPERATURE,
-            native_unit_of_measurement=UnitOfTemperature.CELSIUS,
-        ),
-        OvumMeasurementSensorDescription(
-            component=component,
             license=(
                 OvumLicense.PLUS
                 if component != Component.HEATING_1
@@ -273,24 +193,6 @@ def _heating_description(component: Component) -> tuple[TSensorDescription, ...]
             key="room_temperature",
             translation_key="room_temperature",
             name="room_temperature",
-            device_class=SensorDeviceClass.TEMPERATURE,
-            native_unit_of_measurement=UnitOfTemperature.CELSIUS,
-        ),
-        OvumMeasurementSensorDescription(
-            component=component,
-            license=OvumLicense.PLUS,
-            key="cooling_room_temperature_target",
-            translation_key="cooling_room_temperature_target",
-            name="cooling_room_temperature_target",
-            device_class=SensorDeviceClass.TEMPERATURE,
-            native_unit_of_measurement=UnitOfTemperature.CELSIUS,
-        ),
-        OvumMeasurementSensorDescription(
-            component=component,
-            license=OvumLicense.PLUS,
-            key="heating_limit",
-            translation_key="heating_limit",
-            name="heating_limit",
             device_class=SensorDeviceClass.TEMPERATURE,
             native_unit_of_measurement=UnitOfTemperature.CELSIUS,
         ),
@@ -303,54 +205,10 @@ def _heating_description(component: Component) -> tuple[TSensorDescription, ...]
             device_class=SensorDeviceClass.ENUM,
             options=enum_options(OvumVacationStatus),
         ),
-        OvumMeasurementSensorDescription(
-            component=component,
-            license=OvumLicense.PLUS,
-            key="vacation_status_heating_target",
-            translation_key="vacation_status_heating_target",
-            name="vacation_status_heating_target",
-            device_class=SensorDeviceClass.TEMPERATURE,
-            native_unit_of_measurement=UnitOfTemperature.CELSIUS,
-        ),
-        OvumMeasurementSensorDescription(
-            component=component,
-            license=OvumLicense.PLUS,
-            key="vacation_status_cooling_target",
-            translation_key="vacation_status_cooling_target",
-            name="vacation_status_cooling_target",
-            device_class=SensorDeviceClass.TEMPERATURE,
-            native_unit_of_measurement=UnitOfTemperature.CELSIUS,
-        ),
-        OvumMeasurementSensorDescription(
-            component=component,
-            license=OvumLicense.PLUS,
-            key="mode_fixed_heating_target",
-            translation_key="mode_fixed_heating_target",
-            name="mode_fixed_heating_target",
-            device_class=SensorDeviceClass.TEMPERATURE,
-            native_unit_of_measurement=UnitOfTemperature.CELSIUS,
-        ),
-        OvumMeasurementSensorDescription(
-            component=component,
-            license=OvumLicense.PLUS,
-            key="mode_fixed_cooling_target",
-            translation_key="mode_fixed_cooling_target",
-            name="mode_fixed_cooling_target",
-            device_class=SensorDeviceClass.TEMPERATURE,
-            native_unit_of_measurement=UnitOfTemperature.CELSIUS,
-        ),
     )
 
 
 _HOT_WATER_SENSORS: tuple[TSensorDescription, ...] = (
-    OvumSensorDescription(
-        component=Component.HOT_WATER,
-        key="status",
-        translation_key="off_on_state",
-        name="status",
-        device_class=SensorDeviceClass.ENUM,
-        options=enum_options(OvumHotWaterStatus),
-    ),
     OvumSensorDescription(
         component=Component.HOT_WATER,
         license=OvumLicense.PLUS,
@@ -373,14 +231,6 @@ _HOT_WATER_SENSORS: tuple[TSensorDescription, ...] = (
         key="temperature_target",
         translation_key="temperature_target",
         name="temperature_target",
-        device_class=SensorDeviceClass.TEMPERATURE,
-        native_unit_of_measurement=UnitOfTemperature.CELSIUS,
-    ),
-    OvumMeasurementSensorDescription(
-        component=Component.HOT_WATER,
-        key="temperature_target_pv",
-        translation_key="temperature_target_pv",
-        name="temperature_target_pv",
         device_class=SensorDeviceClass.TEMPERATURE,
         native_unit_of_measurement=UnitOfTemperature.CELSIUS,
     ),
@@ -483,14 +333,6 @@ _BUFFER_SENSORS: tuple[TSensorDescription, ...] = (
     ),
     OvumMeasurementSensorDescription(
         component=Component.BUFFER,
-        key="temperature_target_pv",
-        translation_key="temperature_target_pv",
-        name="temperature_target_pv",
-        device_class=SensorDeviceClass.TEMPERATURE,
-        native_unit_of_measurement=UnitOfTemperature.CELSIUS,
-    ),
-    OvumMeasurementSensorDescription(
-        component=Component.BUFFER,
         key="temperature_top",
         translation_key="temperature_top",
         name="temperature_top",
@@ -544,46 +386,6 @@ _BUFFER_SENSORS: tuple[TSensorDescription, ...] = (
 )
 
 _EMS_SENSORS: tuple[TSensorDescription, ...] = (
-    OvumSensorDescription(
-        component=Component.EMS,
-        key="status",
-        translation_key="ems_status",
-        name="status",
-        device_class=SensorDeviceClass.ENUM,
-        options=enum_options(OvumEmsStatus),
-    ),
-    OvumMeasurementSensorDescription(
-        component=Component.EMS,
-        key="battery",
-        translation_key="battery",
-        name="battery",
-        device_class=SensorDeviceClass.BATTERY,
-        native_unit_of_measurement=UnitOfRatio.PERCENTAGE,
-    ),
-    OvumMeasurementSensorDescription(
-        component=Component.EMS,
-        key="grid_power",
-        translation_key="grid_power",
-        name="grid_power",
-        device_class=SensorDeviceClass.POWER,
-        native_unit_of_measurement=UnitOfPower.WATT,
-    ),
-    OvumMeasurementSensorDescription(
-        component=Component.EMS,
-        key="inverter_power",
-        translation_key="inverter_power",
-        name="inverter_power",
-        device_class=SensorDeviceClass.POWER,
-        native_unit_of_measurement=UnitOfPower.WATT,
-    ),
-    OvumMeasurementSensorDescription(
-        component=Component.EMS,
-        key="target_power",
-        translation_key="target_power",
-        name="target_power",
-        device_class=SensorDeviceClass.POWER,
-        native_unit_of_measurement=UnitOfPower.WATT,
-    ),
     OvumSensorDescription(
         component=Component.EMS,
         license=OvumLicense.PLUS,

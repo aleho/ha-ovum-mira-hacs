@@ -26,8 +26,10 @@ from .coordinator import OvumConfigEntry, OvumCoordinator
 
 PLATFORMS = [
     Platform.BINARY_SENSOR,
-    Platform.SENSOR,
     Platform.CLIMATE,
+    Platform.NUMBER,
+    Platform.SELECT,
+    Platform.SENSOR,
     Platform.WATER_HEATER,
 ]
 
