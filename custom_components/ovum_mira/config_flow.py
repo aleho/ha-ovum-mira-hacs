@@ -26,6 +26,7 @@ from modbus_connection import (
 )
 from ovum_mira_modbus import (
     DEFAULT_WPM_UNIT_ID,
+    HSM_UNIT_ID,
     OvumMira,
 )
 
@@ -114,7 +115,7 @@ class OvumConfigFlow(ConfigFlow, domain=DOMAIN):
             async with async_get_temporary_unit(
                 self.hass,
                 params,
-                data[CONF_WPM_UNIT_ID],
+                HSM_UNIT_ID,
             ) as unit:
                 serial_number = await OvumMira.async_probe(unit)
         except (HomeAssistantError, ModbusError, OSError, ValueError) as e:
