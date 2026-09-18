@@ -6,6 +6,7 @@ from dataclasses import dataclass
 from datetime import date, datetime
 from decimal import Decimal
 from enum import IntEnum
+from typing import override
 
 from homeassistant.components.sensor import (
     SensorDeviceClass,
@@ -65,6 +66,7 @@ class OvumMeasurementSensorDescription(OvumEntityDescription, SensorEntityDescri
 class OvumSensor(OvumEntity, SensorEntity):
     entity_description: TSensorDescription
 
+    @override
     @property
     def native_value(self) -> StateType | date | datetime | Decimal:
         """Return the current value, mapping enums to lowercase string."""

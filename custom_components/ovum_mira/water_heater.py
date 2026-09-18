@@ -24,7 +24,6 @@ from homeassistant.helpers.entity_platform import AddConfigEntryEntitiesCallback
 from ovum_mira_modbus import (
     OvumHotWaterStatus,
 )
-from propcache.api import cached_property
 
 from .coordinator import OvumConfigEntry
 from .entity import OvumEntityDescription, OvumEntityWriting
@@ -56,13 +55,14 @@ class OvumWaterHeater(OvumEntityWriting, WaterHeaterEntity):
     )
 
     @override
-    @cached_property
+    @property
     def current_operation(self) -> str | None:
         if self._subsystem.status == OvumHotWaterStatus.ON:
             return STATE_ON
 
         return STATE_OFF
 
+    @override
     async def async_set_operation_mode(self, operation_mode: str) -> None:
         if operation_mode == STATE_ON:
             await self.async_turn_on()
@@ -71,18 +71,19 @@ class OvumWaterHeater(OvumEntityWriting, WaterHeaterEntity):
 
     @override
     async def async_turn_off(self, **kwargs: Any) -> None:
-        await self._write_value("status", OvumHotWaterStatus.OFF)
-
-    async def async_turn_on(self, **kwargs: Any) -> None:
-        await self._write_value("status", OvumHotWaterStatus.ON)
+        await self._write_value(OvumHotWaterStatus.OFF, "status")
 
     @override
-    @cached_property
+    async def async_turn_on(self, **kwargs: Any) -> None:
+        await self._write_value(OvumHotWaterStatus.ON, "status")
+
+    @override
+    @property
     def target_temperature(self) -> float | None:
         return self._subsystem.temperature_target
 
     @override
-    @cached_property
+    @property
     def current_temperature(self) -> float | None:
         return self._subsystem.reservoir_temperature_bottom
 
@@ -92,7 +93,7 @@ class OvumWaterHeater(OvumEntityWriting, WaterHeaterEntity):
             return
 
         self._attr_target_temperature = temperature
-        await self._write_value("temperature_target", temperature)
+        await self._write_value(temperature, "temperature_target")
 
 
 async def async_setup_entry(

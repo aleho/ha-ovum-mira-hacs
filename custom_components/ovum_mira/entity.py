@@ -5,6 +5,7 @@ from __future__ import annotations
 import logging
 from datetime import date, datetime
 from decimal import Decimal
+from enum import IntEnum, StrEnum
 from typing import Any, Self
 
 from homeassistant.helpers import device_registry
@@ -25,7 +26,7 @@ from .enum import Component
 _LOGGER = logging.getLogger(__name__)
 
 
-def enum_options(enum) -> list[str]:
+def enum_options(enum: IntEnum | StrEnum) -> list[str]:
     return [e.name.lower() for e in enum]
 
 
@@ -127,7 +128,9 @@ class OvumEntity(CoordinatorEntity[OvumCoordinator]):
         return getattr(self.coordinator.device, self.entity_description.component)
 
     @property
-    def _current_value(self) -> StateType | date | datetime | Decimal | bool:
+    def _current_value(
+        self,
+    ) -> StateType | date | datetime | Decimal | bool | IntEnum | StrEnum:
         return getattr(
             self._subsystem,
             self.entity_description.attribute or self.entity_description.key,
@@ -163,10 +166,13 @@ class OvumEntity(CoordinatorEntity[OvumCoordinator]):
 
 
 class OvumEntityWriting(OvumEntity):
-    async def _write_value(self, target: str, value: Any):
+    async def _write_value(self, value: Any, target: str | None = None):
         """Optimistically write a value.
         Not using `await self.coordinator.async_request_refresh()` to read fewer values.
-        Currently, also not using `await self._subsystem.async_update()`.
         """
+        if target is None:
+            target = self.entity_description.attribute or self.entity_description.key
+
         await self._subsystem.async_write_datapoint(target, value)
-        self.async_write_ha_state()
+        # force update (dashboard refresh issues)
+        await self._device.async_poll((self.entity_description.component,))

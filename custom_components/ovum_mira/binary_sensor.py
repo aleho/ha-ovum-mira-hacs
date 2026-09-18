@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 from dataclasses import dataclass
+from typing import override
 
 from homeassistant.components.binary_sensor import (
     BinarySensorDeviceClass,
@@ -28,6 +29,7 @@ class OvumBinarySensorDescription(OvumEntityDescription, BinarySensorEntityDescr
 class OvumBinarySensor(OvumEntity, BinarySensorEntity):
     entity_description: OvumBinarySensorDescription
 
+    @override
     @property
     def is_on(self) -> bool:
         value = self._current_value

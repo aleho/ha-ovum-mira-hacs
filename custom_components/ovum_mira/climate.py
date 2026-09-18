@@ -26,7 +26,6 @@ from ovum_mira_modbus import (
     OvumHeatpumpStatus,
     OvumLicense,
 )
-from propcache.api import cached_property
 
 from .coordinator import OvumConfigEntry
 from .entity import OvumEntityDescription, OvumEntityWriting
@@ -60,7 +59,7 @@ class OvumClimateHeating(OvumEntityWriting, ClimateEntity):
     _attr_target_temperature_high = 50
 
     @override
-    @cached_property
+    @property
     def hvac_action(self) -> HVACAction:
         match self._device.heat_pump.status:
             case OvumHeatpumpStatus.HEATING:
@@ -83,7 +82,7 @@ class OvumClimateHeating(OvumEntityWriting, ClimateEntity):
         return HVACAction.OFF
 
     @override
-    @cached_property
+    @property
     def hvac_mode(self) -> HVACMode | None:
         """Tries to match the circuit mode to the HVAC mode."""
         match self._subsystem.mode:
@@ -121,20 +120,24 @@ class OvumClimateHeating(OvumEntityWriting, ClimateEntity):
         self._log("Setting HVAC %s as mode %s", hvac_mode, mode)
 
         self._attr_hvac_mode = mode
-        await self._write_value("mode", mode)
+        await self._write_value(mode, "mode")
 
+    @override
     async def async_turn_off(self) -> None:
         if self._subsystem.mode != OvumHeatingCircuitMode.OFF:
             self._attr_hvac_mode = HVACMode.OFF
-            await self._write_value("mode", OvumHeatingCircuitMode.OFF)
+            await self._write_value(OvumHeatingCircuitMode.OFF, "mode")
 
     @override
-    @cached_property
+    @property
     def current_temperature(self) -> float | None:
+        """This value should be provided by a room sensor.
+        It could be writable, depending on the configuration.
+        """
         return self._subsystem.temperature
 
     @override
-    @cached_property
+    @property
     def target_temperature(self) -> float | None:
         """Return the target temperature based on license level and operation mode."""
         if self._license == OvumLicense.BASIC:
@@ -194,7 +197,7 @@ class OvumClimateHeating(OvumEntityWriting, ClimateEntity):
             attributes.append("cooling_room_temperature_target")
 
         for attribute in attributes:
-            await self._write_value(attribute, temperature)
+            await self._write_value(temperature, attribute)
 
 
 def _climate_description(component: Component) -> OvumClimateDescription:
