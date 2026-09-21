@@ -18,6 +18,7 @@ docker run \
     --volume ./docker/config:/config \
     --volume ./custom_components:/config/custom_components \
     --volume ../ovum-mira-modbus:/config/custom_libs/ovum_mira_modbus \
+    --volume .venv/lib/python3.14/site-packages/homeassistant/:/usr/src/homeassistant/homeassistant/ \
     --entrypoint="/bin/bash" \
     ghcr.io/home-assistant/home-assistant:$HA_VERSION \
-    -c "pip install -e /config/custom_libs/ovum_mira_modbus && /init"
+    -c "pip install --upgrade -e /config/custom_libs/ovum_mira_modbus && /init"
