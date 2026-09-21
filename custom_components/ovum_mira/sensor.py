@@ -41,7 +41,12 @@ from ovum_mira_modbus import (
 )
 
 from .coordinator import OvumConfigEntry
-from .entity import OvumEntity, OvumEntityDescription, enum_options
+from .entity import (
+    OvumEntity,
+    OvumEntityDescription,
+    enum_options,
+    has_heating,
+)
 from .enum import Component
 
 type TSensorDescription = OvumSensorDescription | OvumMeasurementSensorDescription
@@ -150,7 +155,7 @@ _HEATPUMP_SENSORS: tuple[TSensorDescription, ...] = (
 )
 
 
-def _heating_description(component: Component) -> tuple[TSensorDescription, ...]:
+def _heating_descriptions(component: Component) -> tuple[TSensorDescription, ...]:
     if component == Component.HEATING_1 or component == Component.HEATING_2:
         hk_license = OvumLicense.BASIC
     else:
@@ -443,13 +448,9 @@ _EMS_SENSORS: tuple[TSensorDescription, ...] = (
     ),
 )
 
-ALL_SENSORS: tuple[TSensorDescription, ...] = (
+SENSORS: tuple[TSensorDescription, ...] = (
     *_SYSTEM_SENSORS,
     *_HEATPUMP_SENSORS,
-    *_heating_description(Component.HEATING_1),
-    *_heating_description(Component.HEATING_2),
-    *_heating_description(Component.HEATING_3),
-    *_heating_description(Component.HEATING_4),
     *_HOT_WATER_SENSORS,
     *_BUFFER_SENSORS,
     *_EMS_SENSORS,
@@ -461,4 +462,10 @@ async def async_setup_entry(
     entry: OvumConfigEntry,
     async_add_entities: AddConfigEntryEntitiesCallback,
 ) -> None:
-    async_add_entities(OvumSensor.from_list(entry, ALL_SENSORS).values())
+    async_add_entities(OvumSensor.from_list(entry, SENSORS).values())
+
+    for component in Component.heating:
+        if has_heating(entry, component):
+            async_add_entities(
+                OvumSensor.from_list(entry, _heating_descriptions(component)).values()
+            )

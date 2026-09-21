@@ -22,7 +22,11 @@ from ovum_mira_modbus import (
 )
 
 from .coordinator import OvumConfigEntry
-from .entity import OvumEntityDescription, OvumEntityWriting
+from .entity import (
+    OvumEntityDescription,
+    OvumEntityWriting,
+    has_heating,
+)
 from .enum import Component
 
 
@@ -67,7 +71,7 @@ _HOT_WATER_NUMBERS: tuple[OvumNumberDescription, ...] = (
 )
 
 
-def _heating_description(component: Component) -> tuple[OvumNumberDescription, ...]:
+def _heating_descriptions(component: Component) -> tuple[OvumNumberDescription, ...]:
     if component == Component.HEATING_1 or component == Component.HEATING_2:
         hk_license = OvumLicense.BASIC
     else:
@@ -241,10 +245,6 @@ _EMS_NUMBERS: tuple[OvumNumberDescription, ...] = (
 )
 
 NUMBER_ENTITIES: tuple[OvumNumberDescription, ...] = (
-    *_heating_description(Component.HEATING_1),
-    *_heating_description(Component.HEATING_2),
-    *_heating_description(Component.HEATING_3),
-    *_heating_description(Component.HEATING_4),
     *_HOT_WATER_NUMBERS,
     *_BUFFER_NUMBERS,
     *_EMS_NUMBERS,
@@ -257,3 +257,9 @@ async def async_setup_entry(
     async_add_entities: AddConfigEntryEntitiesCallback,
 ) -> None:
     async_add_entities(OvumNumber.from_list(entry, NUMBER_ENTITIES).values())
+
+    for component in Component.heating:
+        if has_heating(entry, component):
+            async_add_entities(
+                OvumNumber.from_list(entry, _heating_descriptions(component)).values()
+            )

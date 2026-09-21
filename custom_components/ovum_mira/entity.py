@@ -16,6 +16,7 @@ from homeassistant.helpers.typing import StateType
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from ovum_mira_modbus import (
     OvumComponent,
+    OvumHeatingCircuitType,
     OvumLicense,
     OvumMira,
 )
@@ -29,6 +30,17 @@ _LOGGER = logging.getLogger(__name__)
 
 def enum_options(enum: IntEnum | StrEnum) -> list[str]:
     return [e.name.lower() for e in enum]
+
+
+def has_heating(entry: OvumConfigEntry, component: Component) -> bool:
+    heating = getattr(entry.runtime_data.device, component)
+
+    return heating.type in (
+        OvumHeatingCircuitType.UNREGULATED,
+        OvumHeatingCircuitType.RETURN,
+        OvumHeatingCircuitType.MIXED,
+        OvumHeatingCircuitType.CUBE_DIRECT,
+    )
 
 
 class OvumEntityDescription(EntityDescription):

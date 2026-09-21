@@ -28,7 +28,11 @@ from ovum_mira_modbus import (
 )
 
 from .coordinator import OvumConfigEntry
-from .entity import OvumEntityDescription, OvumEntityWriting
+from .entity import (
+    OvumEntityDescription,
+    OvumEntityWriting,
+    has_heating,
+)
 from .enum import Component
 
 
@@ -215,17 +219,15 @@ def _climate_description(component: Component) -> OvumClimateDescription:
     )
 
 
-ALL_HEATING: tuple[OvumClimateDescription, ...] = (
-    _climate_description(Component.HEATING_1),
-    _climate_description(Component.HEATING_2),
-    _climate_description(Component.HEATING_3),
-    _climate_description(Component.HEATING_4),
-)
-
-
 async def async_setup_entry(
     hass: HomeAssistant,
     entry: OvumConfigEntry,
     async_add_entities: AddConfigEntryEntitiesCallback,
 ) -> None:
-    async_add_entities(OvumClimateHeating.from_list(entry, ALL_HEATING).values())
+    for component in Component.heating:
+        if has_heating(entry, component):
+            async_add_entities(
+                OvumClimateHeating.from_list(
+                    entry, (_climate_description(component),)
+                ).values()
+            )

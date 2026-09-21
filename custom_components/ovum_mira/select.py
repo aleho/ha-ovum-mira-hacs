@@ -21,7 +21,12 @@ from ovum_mira_modbus import (
 )
 
 from .coordinator import OvumConfigEntry
-from .entity import OvumEntityDescription, OvumEntityWriting, enum_options
+from .entity import (
+    OvumEntityDescription,
+    OvumEntityWriting,
+    enum_options,
+    has_heating,
+)
 from .enum import Component
 
 
@@ -68,7 +73,7 @@ class OvumSelect(OvumEntityWriting, SelectEntity):
             raise ValueError(f"Unsupported select option for enum: {option}") from err
 
 
-def _heating_description(component: Component) -> tuple[OvumSelectDescription, ...]:
+def _heating_descriptions(component: Component) -> tuple[OvumSelectDescription, ...]:
     if component == Component.HEATING_1 or component == Component.HEATING_2:
         hk_license = OvumLicense.BASIC
     else:
@@ -115,10 +120,6 @@ _EMS_SELECTS: tuple[OvumSelectDescription, ...] = (
 )
 
 SELECT_ENTITIES: tuple[OvumSelectDescription, ...] = (
-    *_heating_description(Component.HEATING_1),
-    *_heating_description(Component.HEATING_2),
-    *_heating_description(Component.HEATING_3),
-    *_heating_description(Component.HEATING_4),
     *_HOT_WATER_SELECTS,
     *_EMS_SELECTS,
 )
@@ -130,3 +131,9 @@ async def async_setup_entry(
     async_add_entities: AddConfigEntryEntitiesCallback,
 ) -> None:
     async_add_entities(OvumSelect.from_list(entry, SELECT_ENTITIES).values())
+
+    for component in Component.heating:
+        if has_heating(entry, component):
+            async_add_entities(
+                OvumSelect.from_list(entry, _heating_descriptions(component)).values()
+            )

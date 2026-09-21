@@ -1,5 +1,7 @@
 from enum import StrEnum
 
+from sqlalchemy.util import classproperty
+
 
 class Component(StrEnum):
     SYSTEM = "hsm"
@@ -11,3 +13,12 @@ class Component(StrEnum):
     HOT_WATER = "hot_water"
     BUFFER = "buffer"
     EMS = "ems"
+
+    @classproperty
+    def heating(cls) -> tuple[str, ...]:
+        return (
+            cls.HEATING_1,
+            cls.HEATING_2,
+            cls.HEATING_3,
+            cls.HEATING_4,
+        )
