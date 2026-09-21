@@ -344,6 +344,9 @@ _BUFFER_SENSORS: tuple[TSensorDescription, ...] = (
         name="temperature_top",
         device_class=SensorDeviceClass.TEMPERATURE,
         native_unit_of_measurement=UnitOfTemperature.CELSIUS,
+        entity_registry_enabled_check=lambda buffer, _: (
+            buffer.temperature_top is not None
+        ),
     ),
     OvumMeasurementSensorDescription(
         component=Component.BUFFER,
@@ -371,6 +374,9 @@ _BUFFER_SENSORS: tuple[TSensorDescription, ...] = (
         name="cooling_temperature_bottom",
         device_class=SensorDeviceClass.TEMPERATURE,
         native_unit_of_measurement=UnitOfTemperature.CELSIUS,
+        entity_registry_enabled_check=lambda buffer, _: (
+            buffer.cooling_available == OvumCoolBufferAvailable.YES
+        ),
     ),
     OvumMeasurementSensorDescription(
         component=Component.BUFFER,
@@ -380,6 +386,9 @@ _BUFFER_SENSORS: tuple[TSensorDescription, ...] = (
         name="cooling_temperature_target",
         device_class=SensorDeviceClass.TEMPERATURE,
         native_unit_of_measurement=UnitOfTemperature.CELSIUS,
+        entity_registry_enabled_check=lambda buffer, _: (
+            buffer.cooling_available == OvumCoolBufferAvailable.YES
+        ),
     ),
     OvumSensorDescription(
         component=Component.BUFFER,
@@ -389,6 +398,9 @@ _BUFFER_SENSORS: tuple[TSensorDescription, ...] = (
         name="cooling_loading_status",
         device_class=SensorDeviceClass.ENUM,
         options=enum_options(OvumCoolBufferLoadingStatus),
+        entity_registry_enabled_check=lambda buffer, _: (
+            buffer.cooling_available == OvumCoolBufferAvailable.YES
+        ),
     ),
 )
 

@@ -3,10 +3,11 @@
 from __future__ import annotations
 
 import logging
+from collections.abc import Callable
 from datetime import date, datetime
 from decimal import Decimal
 from enum import IntEnum, StrEnum
-from typing import Any, Self
+from typing import Any, Self, override
 
 from homeassistant.helpers import device_registry
 from homeassistant.helpers.device_registry import ChildDeviceInfo, DeviceInfo
@@ -34,6 +35,10 @@ class OvumEntityDescription(EntityDescription):
     component: Component
     attribute: str | None = None
     license: OvumLicense = OvumLicense.BASIC
+
+    entity_registry_enabled_check: (
+        Callable[[OvumComponent, OvumEntity], bool] | None
+    ) = None
 
 
 class OvumEntity(CoordinatorEntity[OvumCoordinator]):
@@ -135,6 +140,16 @@ class OvumEntity(CoordinatorEntity[OvumCoordinator]):
             self._subsystem,
             self.entity_description.attribute or self.entity_description.key,
         )
+
+    @override
+    @property
+    def entity_registry_enabled_default(self) -> bool:
+        if self.entity_description.entity_registry_enabled_check is not None:
+            return self.entity_description.entity_registry_enabled_check(
+                self._subsystem, self
+            )
+
+        return True
 
     def _log(self, message: str, *args: Any) -> None:
         _LOGGER.info(
