@@ -303,6 +303,10 @@ _HOT_WATER_SENSORS: tuple[TSensorDescription, ...] = (
         name="circulation_pump_temperature",
         device_class=SensorDeviceClass.TEMPERATURE,
         native_unit_of_measurement=UnitOfTemperature.CELSIUS,
+        entity_registry_enabled_check=lambda hot_water, _: (
+            hot_water.circulation_pump_temperature is not None
+            and hot_water.circulation_pump_temperature > 0
+        ),
     ),
 )
 
