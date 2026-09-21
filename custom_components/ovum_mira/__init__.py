@@ -12,6 +12,7 @@ from modbus_connection import (
     ModbusTcpParams,
 )
 from ovum_mira_modbus import (
+    DEFAULT_ACCESS_CODE,
     DEFAULT_WPM_UNIT_ID,
     HSM_UNIT_ID,
     OvumLicense,
@@ -19,6 +20,7 @@ from ovum_mira_modbus import (
 )
 
 from .const import (
+    CONF_ACCESS_CODE,
     CONF_LICENSE_LEVEL,
     CONF_WPM_UNIT_ID,
 )
@@ -62,6 +64,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: OvumConfigEntry) -> bool
         license=license,
         wpm_unit=wpm_unit,
         hsm_unit=hsm_unit,
+        access_code=entry.data.get(CONF_ACCESS_CODE, DEFAULT_ACCESS_CODE),
     )
 
     coordinator = OvumCoordinator(hass, entry, device, license)

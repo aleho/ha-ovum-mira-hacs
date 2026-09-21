@@ -25,12 +25,14 @@ from modbus_connection import (
     ModbusTcpParams,
 )
 from ovum_mira_modbus import (
+    DEFAULT_ACCESS_CODE,
     DEFAULT_WPM_UNIT_ID,
     HSM_UNIT_ID,
     OvumMira,
 )
 
 from .const import (
+    CONF_ACCESS_CODE,
     CONF_LICENSE_LEVEL,
     CONF_WPM_UNIT_ID,
     DOMAIN,
@@ -99,6 +101,7 @@ class OvumConfigFlow(ConfigFlow, domain=DOMAIN):
                 port=entry.data[CONF_PORT],
                 wpm_unit_id=entry.data[CONF_WPM_UNIT_ID],
                 license_level=entry.data[CONF_LICENSE_LEVEL],
+                access_code=entry.data.get(CONF_ACCESS_CODE, DEFAULT_ACCESS_CODE),
             ),
         )
 
@@ -117,7 +120,14 @@ class OvumConfigFlow(ConfigFlow, domain=DOMAIN):
                 params,
                 HSM_UNIT_ID,
             ) as unit:
-                serial_number = await OvumMira.async_probe(unit)
+                device = OvumMira(
+                    hsm_unit=unit,
+                    access_code=data[CONF_ACCESS_CODE],
+                    license=None,
+                    wpm_unit=None,
+                )
+                serial_number = await device.async_probe(unit)
+
         except (HomeAssistantError, ModbusError, OSError, ValueError) as e:
             _LOGGER.error("Error establishing Modbus TCP connection: %s", e)
             return None
@@ -134,6 +144,7 @@ class OvumConfigFlow(ConfigFlow, domain=DOMAIN):
         port: int = 502,
         wpm_unit_id: int = DEFAULT_WPM_UNIT_ID,
         license_level: int = 1,
+        access_code: int = DEFAULT_ACCESS_CODE,
     ) -> vol.Schema:
         return vol.Schema(
             {
@@ -165,6 +176,16 @@ class OvumConfigFlow(ConfigFlow, domain=DOMAIN):
                             mode=SelectSelectorMode.DROPDOWN,
                             translation_key="license_level",
                             options=["1", "2"],
+                        )
+                    ),
+                    vol.Coerce(int),
+                ),
+                vol.Required(CONF_ACCESS_CODE, default=access_code): vol.All(
+                    NumberSelector(
+                        NumberSelectorConfig(
+                            min=1,
+                            step=1,
+                            mode=NumberSelectorMode.BOX,
                         )
                     ),
                     vol.Coerce(int),

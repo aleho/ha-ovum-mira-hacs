@@ -14,7 +14,8 @@
                     "host": "Hostname or IP address",
                     "port": "Port",
                     "wpm_unit_id": "WPM unit ID",
-                    "license_level": "License level"
+                    "license_level": "License level",
+                    "access_code": "Access code"
                 }
             },
             "reconfigure": {
@@ -24,7 +25,8 @@
                     "host": "Hostname or IP address",
                     "port": "Port",
                     "wpm_unit_id": "WPM unit ID",
-                    "license_level": "License level"
+                    "license_level": "License level",
+                    "access_code": "Access code"
                 }
             }
         }
