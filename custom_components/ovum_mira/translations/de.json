@@ -142,8 +142,8 @@
                 "name": "Modus",
                 "state": {
                     "none": "Keiner",
-                    "buffer": "Heizen",
-                    "cube": "Kühlen"
+                    "heating": "Heizen",
+                    "cooling": "Kühlen"
                 }
             },
             "operation_mode": {
