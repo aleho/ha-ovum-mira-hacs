@@ -24,14 +24,14 @@ from .const import (
 )
 from .coordinator import OvumConfigEntry, OvumCoordinator
 
-PLATFORMS = [
+PLATFORMS = (
     Platform.BINARY_SENSOR,
     Platform.CLIMATE,
     Platform.NUMBER,
     Platform.SELECT,
     Platform.SENSOR,
     Platform.WATER_HEATER,
-]
+)
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: OvumConfigEntry) -> bool:
