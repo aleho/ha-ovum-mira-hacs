@@ -15,6 +15,7 @@ from homeassistant.components.sensor import (
     SensorStateClass,
 )
 from homeassistant.const import (
+    EntityCategory,
     UnitOfPower,
     UnitOfRatio,
     UnitOfTemperature,
@@ -164,6 +165,7 @@ def _heating_description(component: Component) -> tuple[TSensorDescription, ...]
             name="type",
             device_class=SensorDeviceClass.ENUM,
             options=enum_options(OvumHeatingCircuitType),
+            entity_category=EntityCategory.DIAGNOSTIC,
         ),
         OvumMeasurementSensorDescription(
             component=component,
@@ -204,6 +206,7 @@ def _heating_description(component: Component) -> tuple[TSensorDescription, ...]
             name="vacation_status",
             device_class=SensorDeviceClass.ENUM,
             options=enum_options(OvumVacationStatus),
+            entity_category=EntityCategory.DIAGNOSTIC,
         ),
     )
 
@@ -225,6 +228,7 @@ _HOT_WATER_SENSORS: tuple[TSensorDescription, ...] = (
         name="available",
         device_class=SensorDeviceClass.ENUM,
         options=enum_options(OvumHotWaterAvailable),
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     OvumMeasurementSensorDescription(
         component=Component.HOT_WATER,
@@ -266,6 +270,7 @@ _HOT_WATER_SENSORS: tuple[TSensorDescription, ...] = (
         name="vacation_status",
         device_class=SensorDeviceClass.ENUM,
         options=enum_options(OvumVacationStatus),
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     OvumMeasurementSensorDescription(
         component=Component.HOT_WATER,
@@ -304,6 +309,7 @@ _BUFFER_SENSORS: tuple[TSensorDescription, ...] = (
         name="type",
         device_class=SensorDeviceClass.ENUM,
         options=enum_options(OvumBufferType),
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     OvumSensorDescription(
         component=Component.BUFFER,
@@ -355,6 +361,7 @@ _BUFFER_SENSORS: tuple[TSensorDescription, ...] = (
         name="cooling_available",
         device_class=SensorDeviceClass.ENUM,
         options=enum_options(OvumCoolBufferAvailable),
+        entity_category=EntityCategory.DIAGNOSTIC,
     ),
     OvumMeasurementSensorDescription(
         component=Component.BUFFER,
