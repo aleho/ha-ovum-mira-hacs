@@ -109,7 +109,8 @@ _HEATPUMP_SENSORS: tuple[TSensorDescription, ...] = (
         name="power_consumption",
         device_class=SensorDeviceClass.POWER,
         native_unit_of_measurement=UnitOfPower.KILO_WATT,
-        suggested_display_precision=3,
+        suggested_unit_of_measurement=UnitOfPower.WATT,
+        suggested_display_precision=0,
     ),
     OvumMeasurementSensorDescription(
         component=Component.HEAT_PUMP,
@@ -118,7 +119,8 @@ _HEATPUMP_SENSORS: tuple[TSensorDescription, ...] = (
         name="power_production",
         device_class=SensorDeviceClass.POWER,
         native_unit_of_measurement=UnitOfPower.KILO_WATT,
-        suggested_display_precision=3,
+        suggested_unit_of_measurement=UnitOfPower.WATT,
+        suggested_display_precision=0,
     ),
     OvumMeasurementSensorDescription(
         component=Component.HEAT_PUMP,
