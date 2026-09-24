@@ -10,5 +10,5 @@
   "issue_tracker": "https://github.com/aleho/ha-ovum-mira-hacs/issues",
   "loggers": ["custom_components.ovum_mira"],
   "requirements": ["ovum-mira-modbus==0.0.6", "modbus-connection==4.12.1"],
-  "version": "0.0.7"
+  "version": "0.0.8"
 }
