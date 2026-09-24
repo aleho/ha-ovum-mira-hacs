@@ -116,17 +116,18 @@ class OvumConfigFlow(ConfigFlow, domain=DOMAIN):
             )
 
             async with async_get_temporary_unit(
-                self.hass,
-                params,
-                HSM_UNIT_ID,
-            ) as unit:
-                device = OvumMira(
-                    hsm_unit=unit,
-                    access_code=data[CONF_ACCESS_CODE],
-                    license=None,
-                    wpm_unit=None,
-                )
-                serial_number = await device.async_probe(unit)
+                self.hass, params, HSM_UNIT_ID
+            ) as hsm_unit:
+                async with async_get_temporary_unit(
+                    self.hass, params, DEFAULT_WPM_UNIT_ID
+                ) as wpm_unit:
+                    device = OvumMira(
+                        hsm_unit=hsm_unit,
+                        wpm_unit=wpm_unit,
+                        license=None,
+                        access_code=data[CONF_ACCESS_CODE],
+                    )
+                    serial_number = await device.async_probe()
 
         except (HomeAssistantError, ModbusError, OSError, ValueError) as e:
             _LOGGER.error("Error establishing Modbus TCP connection: %s", e)

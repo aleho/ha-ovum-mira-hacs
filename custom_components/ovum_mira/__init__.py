@@ -61,9 +61,9 @@ async def async_setup_entry(hass: HomeAssistant, entry: OvumConfigEntry) -> bool
     license = OvumLicense(int(entry.data[CONF_LICENSE_LEVEL]))
 
     device = OvumMira(
-        license=license,
-        wpm_unit=wpm_unit,
         hsm_unit=hsm_unit,
+        wpm_unit=wpm_unit,
+        license=license,
         access_code=entry.data.get(CONF_ACCESS_CODE, DEFAULT_ACCESS_CODE),
     )
 
