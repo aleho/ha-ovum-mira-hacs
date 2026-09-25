@@ -41,6 +41,7 @@ from ovum_mira_modbus import (
 )
 
 from .coordinator import OvumConfigEntry
+from .energy import OvumEnergySensor
 from .entity import (
     OvumEntity,
     OvumEntityDescription,
@@ -468,10 +469,21 @@ async def async_setup_entry(
     entry: OvumConfigEntry,
     async_add_entities: AddConfigEntryEntitiesCallback,
 ) -> None:
-    async_add_entities(OvumSensor.from_list(entry, SENSORS).values())
+    sensors = OvumSensor.from_list(entry, SENSORS)
+    async_add_entities(sensors.values())
 
     for component in Component.heating:
         if has_heating(entry, component):
             async_add_entities(
                 OvumSensor.from_list(entry, _heating_descriptions(component)).values()
             )
+
+    hp_power_consumption = sensors[f"{Component.HEAT_PUMP}_power_consumption"]
+    hp_power_production = sensors[f"{Component.HEAT_PUMP}_power_production"]
+
+    async_add_entities(
+        (
+            OvumEnergySensor(hass=hass, source_entity=hp_power_consumption),
+            OvumEnergySensor(hass=hass, source_entity=hp_power_production),
+        )
+    )

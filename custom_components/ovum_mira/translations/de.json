@@ -99,10 +99,16 @@
                 }
             },
             "power_consumption": {
-                "name": "Leistung"
+                "name": "Leistungsaufnahme"
+            },
+            "power_consumption_integral": {
+                "name": "Verbrauch"
             },
             "power_production": {
-                "name": "Leistung Erzeugung"
+                "name": "Heizleistung"
+            },
+            "power_production_integral": {
+                "name": "Thermische Energie"
             },
             "demand": {
                 "name": "Anforderung"

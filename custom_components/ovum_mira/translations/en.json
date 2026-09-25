@@ -101,8 +101,14 @@
             "power_consumption": {
                 "name": "Power consumption"
             },
+            "power_consumption_integral": {
+                "name": "Energy consumption"
+            },
             "power_production": {
-                "name": "Power production"
+                "name": "Heating power"
+            },
+            "power_production_integral": {
+                "name": "Thermic energy"
             },
             "demand": {
                 "name": "Demand"
