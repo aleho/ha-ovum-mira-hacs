@@ -3,7 +3,7 @@
   "name": "Ovum Mira",
   "codeowners": ["@aleho"],
   "config_flow": true,
-  "dependencies": ["modbus"],
+  "dependencies": ["modbus", "integration"],
   "documentation": "https://github.com/aleho/ha-ovum-mira-hacs",
   "integration_type": "device",
   "iot_class": "local_polling",
