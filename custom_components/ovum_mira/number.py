@@ -222,6 +222,8 @@ _EMS_NUMBERS: tuple[OvumNumberDescription, ...] = (
         name="grid_power",
         device_class=NumberDeviceClass.POWER,
         native_unit_of_measurement=UnitOfPower.WATT,
+        native_min_value=-100000,
+        native_max_value=100000,
         native_step=1,
     ),
     OvumNumberDescription(
@@ -231,6 +233,8 @@ _EMS_NUMBERS: tuple[OvumNumberDescription, ...] = (
         name="inverter_power",
         device_class=NumberDeviceClass.POWER,
         native_unit_of_measurement=UnitOfPower.WATT,
+        native_min_value=0,
+        native_max_value=100000,
         native_step=1,
     ),
     OvumNumberDescription(
@@ -240,6 +244,8 @@ _EMS_NUMBERS: tuple[OvumNumberDescription, ...] = (
         name="target_power",
         device_class=NumberDeviceClass.POWER,
         native_unit_of_measurement=UnitOfPower.WATT,
+        native_min_value=0,
+        native_max_value=50000,
         native_step=1,
     ),
 )
